@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7358E4E1C4DE6E1C79540CCE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 592C7D9FD86D4501E86450BE /* libPods.a */; };
+		D398FE0F1ADDC9A000D32520 /* TSNBubbleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D398FE0D1ADDC9A000D32520 /* TSNBubbleTableViewCell.m */; };
+		D3E8CF671ADD9D9D000B8820 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E8CF661ADD9D9D000B8820 /* Images.xcassets */; };
+		D3E8CFB71ADD9DC7000B8820 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF6B1ADD9DC7000B8820 /* main.m */; };
+		D3E8CFB81ADD9DC7000B8820 /* TSNAppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF6E1ADD9DC7000B8820 /* TSNAppContext.m */; };
+		D3E8CFB91ADD9DC7000B8820 /* TSNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF711ADD9DC7000B8820 /* TSNAppDelegate.m */; };
+		D3E8CFBF1ADD9DC7000B8820 /* TSNLocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF811ADD9DC7000B8820 /* TSNLocationContext.m */; };
+		D3E8CFC01ADD9DC7000B8820 /* TSNPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */; };
+		D3E8CFC11ADD9DC7000B8820 /* TSNPeerBluetoothContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */; };
+		D3E8CFC31ADD9DC7000B8820 /* TSNPeerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF901ADD9DC7000B8820 /* TSNPeerStatus.m */; };
+		D3E8CFC41ADD9DC7000B8820 /* TSNAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF931ADD9DC7000B8820 /* TSNAppView.m */; };
+		D3E8CFC51ADD9DC7000B8820 /* TSNAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF951ADD9DC7000B8820 /* TSNAppViewController.m */; };
+		D3E8CFC61ADD9DC7000B8820 /* TSNAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF981ADD9DC7000B8820 /* TSNAppWindow.m */; };
+		D3E8CFC71ADD9DC7000B8820 /* TSNBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF9A1ADD9DC7000B8820 /* TSNBubbleView.m */; };
+		D3E8CFCB1ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CFA41ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m */; };
+		D3E8CFCC1ADD9DC7000B8820 /* TSNLocalPeerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CFA61ADD9DC7000B8820 /* TSNLocalPeerAnnotation.m */; };
+		D3E8CFD01ADD9DC7000B8820 /* TSNNearbyPeersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CFAE1ADD9DC7000B8820 /* TSNNearbyPeersView.m */; };
+		D3E8CFD11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CFB11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m */; };
+		D3E8CFD21ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CFB31ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0882C0C4B59F76C4BB271F05 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		592C7D9FD86D4501E86450BE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C918475F3DA5B082E12627E7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D398FE0C1ADDC9A000D32520 /* TSNBubbleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNBubbleTableViewCell.h; sourceTree = "<group>"; };
+		D398FE0D1ADDC9A000D32520 /* TSNBubbleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNBubbleTableViewCell.m; sourceTree = "<group>"; };
+		D3E8CF391ADD9A11000B8820 /* BubbleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubbleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E8CF641ADD9D65000B8820 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Assets/PropertyLists/Info.plist; sourceTree = "<group>"; };
+		D3E8CF661ADD9D9D000B8820 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
+		D3E8CF6B1ADD9DC7000B8820 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D3E8CF6D1ADD9DC7000B8820 /* TSNAppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppContext.h; sourceTree = "<group>"; };
+		D3E8CF6E1ADD9DC7000B8820 /* TSNAppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNAppContext.m; sourceTree = "<group>"; };
+		D3E8CF701ADD9DC7000B8820 /* TSNAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppDelegate.h; sourceTree = "<group>"; };
+		D3E8CF711ADD9DC7000B8820 /* TSNAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNAppDelegate.m; sourceTree = "<group>"; };
+		D3E8CF801ADD9DC7000B8820 /* TSNLocationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNLocationContext.h; sourceTree = "<group>"; };
+		D3E8CF811ADD9DC7000B8820 /* TSNLocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNLocationContext.m; sourceTree = "<group>"; };
+		D3E8CF821ADD9DC7000B8820 /* TSNLocationContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNLocationContextDelegate.h; sourceTree = "<group>"; };
+		D3E8CF841ADD9DC7000B8820 /* TSNPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeer.h; sourceTree = "<group>"; };
+		D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeer.m; sourceTree = "<group>"; };
+		D3E8CF871ADD9DC7000B8820 /* TSNPeerBluetoothContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerBluetoothContext.h; sourceTree = "<group>"; };
+		D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeerBluetoothContext.m; sourceTree = "<group>"; };
+		D3E8CF891ADD9DC7000B8820 /* TSNPeerBluetoothContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerBluetoothContextDelegate.h; sourceTree = "<group>"; };
+		D3E8CF8F1ADD9DC7000B8820 /* TSNPeerStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerStatus.h; sourceTree = "<group>"; };
+		D3E8CF901ADD9DC7000B8820 /* TSNPeerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeerStatus.m; sourceTree = "<group>"; };
+		D3E8CF921ADD9DC7000B8820 /* TSNAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppView.h; sourceTree = "<group>"; };
+		D3E8CF931ADD9DC7000B8820 /* TSNAppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNAppView.m; sourceTree = "<group>"; };
+		D3E8CF941ADD9DC7000B8820 /* TSNAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppViewController.h; sourceTree = "<group>"; };
+		D3E8CF951ADD9DC7000B8820 /* TSNAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNAppViewController.m; sourceTree = "<group>"; };
+		D3E8CF961ADD9DC7000B8820 /* TSNAppViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppViewDelegate.h; sourceTree = "<group>"; };
+		D3E8CF971ADD9DC7000B8820 /* TSNAppWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppWindow.h; sourceTree = "<group>"; };
+		D3E8CF981ADD9DC7000B8820 /* TSNAppWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNAppWindow.m; sourceTree = "<group>"; };
+		D3E8CF991ADD9DC7000B8820 /* TSNBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNBubbleView.h; sourceTree = "<group>"; };
+		D3E8CF9A1ADD9DC7000B8820 /* TSNBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNBubbleView.m; sourceTree = "<group>"; };
+		D3E8CF9B1ADD9DC7000B8820 /* TSNBubbleViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNBubbleViewDelegate.h; sourceTree = "<group>"; };
+		D3E8CFA31ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNLocalPeerTableViewCell.h; sourceTree = "<group>"; };
+		D3E8CFA41ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNLocalPeerTableViewCell.m; sourceTree = "<group>"; };
+		D3E8CFA51ADD9DC7000B8820 /* TSNLocalPeerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNLocalPeerAnnotation.h; sourceTree = "<group>"; };
+		D3E8CFA61ADD9DC7000B8820 /* TSNLocalPeerAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNLocalPeerAnnotation.m; sourceTree = "<group>"; };
+		D3E8CFAD1ADD9DC7000B8820 /* TSNNearbyPeersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNNearbyPeersView.h; sourceTree = "<group>"; };
+		D3E8CFAE1ADD9DC7000B8820 /* TSNNearbyPeersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNNearbyPeersView.m; sourceTree = "<group>"; };
+		D3E8CFB01ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNNearbyPeerTableViewCell.h; sourceTree = "<group>"; };
+		D3E8CFB11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNNearbyPeerTableViewCell.m; sourceTree = "<group>"; };
+		D3E8CFB21ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNNearbyPeerAnnotation.h; sourceTree = "<group>"; };
+		D3E8CFB31ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNNearbyPeerAnnotation.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3E8CF361ADD9A11000B8820 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7358E4E1C4DE6E1C79540CCE /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07DBEA1B4E52F7695F5CC5D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				592C7D9FD86D4501E86450BE /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3E8CF301ADD9A11000B8820 = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF3B1ADD9A11000B8820 /* BubbleChat */,
+				D3E8CF3A1ADD9A11000B8820 /* Products */,
+				F29564CA02F44D3A695C5C68 /* Pods */,
+				07DBEA1B4E52F7695F5CC5D8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3E8CF3A1ADD9A11000B8820 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF391ADD9A11000B8820 /* BubbleChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3E8CF3B1ADD9A11000B8820 /* BubbleChat */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF621ADD9D49000B8820 /* Assets */,
+				D3E8CF691ADD9DC7000B8820 /* Code */,
+			);
+			path = BubbleChat;
+			sourceTree = "<group>";
+		};
+		D3E8CF621ADD9D49000B8820 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF661ADD9D9D000B8820 /* Images.xcassets */,
+				D3E8CF631ADD9D50000B8820 /* PropertyLists */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		D3E8CF631ADD9D50000B8820 /* PropertyLists */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF641ADD9D65000B8820 /* Info.plist */,
+			);
+			name = PropertyLists;
+			sourceTree = "<group>";
+		};
+		D3E8CF691ADD9DC7000B8820 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF6A1ADD9DC7000B8820 /* App */,
+				D3E8CF6C1ADD9DC7000B8820 /* AppContext */,
+				D3E8CF6F1ADD9DC7000B8820 /* AppDelegate */,
+				D3E8CF7F1ADD9DC7000B8820 /* LocationContext */,
+				D3E8CF831ADD9DC7000B8820 /* Peer */,
+				D3E8CF861ADD9DC7000B8820 /* PeerBluetoothContext */,
+				D3E8CF8E1ADD9DC7000B8820 /* PeerStatus */,
+				D3E8CF911ADD9DC7000B8820 /* UI */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		D3E8CF6A1ADD9DC7000B8820 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF6B1ADD9DC7000B8820 /* main.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D3E8CF6C1ADD9DC7000B8820 /* AppContext */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF6D1ADD9DC7000B8820 /* TSNAppContext.h */,
+				D3E8CF6E1ADD9DC7000B8820 /* TSNAppContext.m */,
+			);
+			path = AppContext;
+			sourceTree = "<group>";
+		};
+		D3E8CF6F1ADD9DC7000B8820 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF701ADD9DC7000B8820 /* TSNAppDelegate.h */,
+				D3E8CF711ADD9DC7000B8820 /* TSNAppDelegate.m */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		D3E8CF7F1ADD9DC7000B8820 /* LocationContext */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF801ADD9DC7000B8820 /* TSNLocationContext.h */,
+				D3E8CF811ADD9DC7000B8820 /* TSNLocationContext.m */,
+				D3E8CF821ADD9DC7000B8820 /* TSNLocationContextDelegate.h */,
+			);
+			path = LocationContext;
+			sourceTree = "<group>";
+		};
+		D3E8CF831ADD9DC7000B8820 /* Peer */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF841ADD9DC7000B8820 /* TSNPeer.h */,
+				D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */,
+			);
+			path = Peer;
+			sourceTree = "<group>";
+		};
+		D3E8CF861ADD9DC7000B8820 /* PeerBluetoothContext */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF871ADD9DC7000B8820 /* TSNPeerBluetoothContext.h */,
+				D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */,
+				D3E8CF891ADD9DC7000B8820 /* TSNPeerBluetoothContextDelegate.h */,
+			);
+			path = PeerBluetoothContext;
+			sourceTree = "<group>";
+		};
+		D3E8CF8E1ADD9DC7000B8820 /* PeerStatus */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF8F1ADD9DC7000B8820 /* TSNPeerStatus.h */,
+				D3E8CF901ADD9DC7000B8820 /* TSNPeerStatus.m */,
+			);
+			path = PeerStatus;
+			sourceTree = "<group>";
+		};
+		D3E8CF911ADD9DC7000B8820 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D3E8CF921ADD9DC7000B8820 /* TSNAppView.h */,
+				D3E8CF931ADD9DC7000B8820 /* TSNAppView.m */,
+				D3E8CF941ADD9DC7000B8820 /* TSNAppViewController.h */,
+				D3E8CF951ADD9DC7000B8820 /* TSNAppViewController.m */,
+				D3E8CF961ADD9DC7000B8820 /* TSNAppViewDelegate.h */,
+				D3E8CF971ADD9DC7000B8820 /* TSNAppWindow.h */,
+				D3E8CF981ADD9DC7000B8820 /* TSNAppWindow.m */,
+				D398FE0C1ADDC9A000D32520 /* TSNBubbleTableViewCell.h */,
+				D398FE0D1ADDC9A000D32520 /* TSNBubbleTableViewCell.m */,
+				D3E8CF991ADD9DC7000B8820 /* TSNBubbleView.h */,
+				D3E8CF9A1ADD9DC7000B8820 /* TSNBubbleView.m */,
+				D3E8CF9B1ADD9DC7000B8820 /* TSNBubbleViewDelegate.h */,
+				D3E8CFA51ADD9DC7000B8820 /* TSNLocalPeerAnnotation.h */,
+				D3E8CFA61ADD9DC7000B8820 /* TSNLocalPeerAnnotation.m */,
+				D3E8CFA31ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.h */,
+				D3E8CFA41ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m */,
+				D3E8CFB21ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.h */,
+				D3E8CFB31ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m */,
+				D3E8CFAD1ADD9DC7000B8820 /* TSNNearbyPeersView.h */,
+				D3E8CFAE1ADD9DC7000B8820 /* TSNNearbyPeersView.m */,
+				D3E8CFB01ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.h */,
+				D3E8CFB11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		F29564CA02F44D3A695C5C68 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0882C0C4B59F76C4BB271F05 /* Pods.debug.xcconfig */,
+				C918475F3DA5B082E12627E7 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3E8CF381ADD9A11000B8820 /* BubbleChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3E8CF5C1ADD9A11000B8820 /* Build configuration list for PBXNativeTarget "BubbleChat" */;
+			buildPhases = (
+				2DD0B364CAFCB917C17E31F7 /* Check Pods Manifest.lock */,
+				D3E8CF351ADD9A11000B8820 /* Sources */,
+				D3E8CF361ADD9A11000B8820 /* Frameworks */,
+				D3E8CF371ADD9A11000B8820 /* Resources */,
+				2A28E46E02D06BFC6B8B19FF /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BubbleChat;
+			productName = BubbleChat;
+			productReference = D3E8CF391ADD9A11000B8820 /* BubbleChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3E8CF311ADD9A11000B8820 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Brian Lambert";
+				TargetAttributes = {
+					D3E8CF381ADD9A11000B8820 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = D3E8CF341ADD9A11000B8820 /* Build configuration list for PBXProject "BubbleChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3E8CF301ADD9A11000B8820;
+			productRefGroup = D3E8CF3A1ADD9A11000B8820 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3E8CF381ADD9A11000B8820 /* BubbleChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3E8CF371ADD9A11000B8820 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E8CF671ADD9D9D000B8820 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2A28E46E02D06BFC6B8B19FF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2DD0B364CAFCB917C17E31F7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3E8CF351ADD9A11000B8820 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E8CFD01ADD9DC7000B8820 /* TSNNearbyPeersView.m in Sources */,
+				D3E8CFC71ADD9DC7000B8820 /* TSNBubbleView.m in Sources */,
+				D3E8CFC61ADD9DC7000B8820 /* TSNAppWindow.m in Sources */,
+				D3E8CFD21ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m in Sources */,
+				D3E8CFD11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m in Sources */,
+				D398FE0F1ADDC9A000D32520 /* TSNBubbleTableViewCell.m in Sources */,
+				D3E8CFC11ADD9DC7000B8820 /* TSNPeerBluetoothContext.m in Sources */,
+				D3E8CFB71ADD9DC7000B8820 /* main.m in Sources */,
+				D3E8CFC01ADD9DC7000B8820 /* TSNPeer.m in Sources */,
+				D3E8CFCB1ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m in Sources */,
+				D3E8CFCC1ADD9DC7000B8820 /* TSNLocalPeerAnnotation.m in Sources */,
+				D3E8CFC51ADD9DC7000B8820 /* TSNAppViewController.m in Sources */,
+				D3E8CFB91ADD9DC7000B8820 /* TSNAppDelegate.m in Sources */,
+				D3E8CFBF1ADD9DC7000B8820 /* TSNLocationContext.m in Sources */,
+				D3E8CFB81ADD9DC7000B8820 /* TSNAppContext.m in Sources */,
+				D3E8CFC41ADD9DC7000B8820 /* TSNAppView.m in Sources */,
+				D3E8CFC31ADD9DC7000B8820 /* TSNPeerStatus.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D3E8CF5A1ADD9A11000B8820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3E8CF5B1ADD9A11000B8820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3E8CF5D1ADD9A11000B8820 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0882C0C4B59F76C4BB271F05 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "$(SRCROOT)/BubbleChat/Assets/PropertyLists/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D3E8CF5E1ADD9A11000B8820 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C918475F3DA5B082E12627E7 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "$(SRCROOT)/BubbleChat/Assets/PropertyLists/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3E8CF341ADD9A11000B8820 /* Build configuration list for PBXProject "BubbleChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E8CF5A1ADD9A11000B8820 /* Debug */,
+				D3E8CF5B1ADD9A11000B8820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3E8CF5C1ADD9A11000B8820 /* Build configuration list for PBXNativeTarget "BubbleChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E8CF5D1ADD9A11000B8820 /* Debug */,
+				D3E8CF5E1ADD9A11000B8820 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3E8CF311ADD9A11000B8820 /* Project object */;
+}

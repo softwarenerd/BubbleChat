@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>541ACD49-F41B-4999-BF19-94D365AD0751</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BubbleChat</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</key>
+		<string>github.com:softwarenerd/BubbleChat.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BubbleChat.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:softwarenerd/BubbleChat.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BubbleChat</string>
+		</dict>
+	</array>
+</dict>
+</plist>
