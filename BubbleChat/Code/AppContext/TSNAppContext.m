@@ -28,7 +28,7 @@
 #import <pthread.h>
 #import <TSNAtomicFlag.h>
 #import "TSNAppContext.h"
-#import "TSNPeerBluetoothContext.h"
+#import "TSNPeerBluetooth.h"
 #import "TSNLocationContext.h"
 #import "TSNPeerStatus.h"
 
@@ -39,8 +39,8 @@ NSString * const TSNPeerEnteredNotification     = @"TSNPeerEntered";
 NSString * const TSNPeerExitedNotification      = @"TSNPeerExited";
 NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 
-// TSNAppContext (TSNPeerBluetoothContextDelegate) interface.
-@interface TSNAppContext (TSNPeerBluetoothContextDelegate) <TSNPeerBluetoothContextDelegate>
+// TSNAppContext (TSNPeerBluetoothDelegate) interface.
+@interface TSNAppContext (TSNPeerBluetoothDelegate) <TSNPeerBluetoothDelegate>
 @end
 
 // TSNAppContext (TSNLocationContextDelegate) interface.
@@ -62,8 +62,8 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
     // The enabled atomic flag.
     TSNAtomicFlag * _atomicFlagEnabled;
 
-    // The peer Bluetooth context.
-    TSNPeerBluetoothContext * _peerBluetoothContext;
+    // Peer Bluetooth.
+    TSNPeerBluetooth * _peerBluetooth;
     
     // The location context.
     TSNLocationContext * _locationContext;
@@ -107,7 +107,7 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 {
     if ([_atomicFlagEnabled trySet])
     {
-        [_peerBluetoothContext start];
+        [_peerBluetooth start];
         [_locationContext start];
     }
 }
@@ -117,7 +117,7 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 {
     if ([_atomicFlagEnabled tryClear])
     {
-        [_peerBluetoothContext stop];
+        [_peerBluetooth stop];
         [_locationContext stop];
     }
 }
@@ -139,19 +139,19 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 // Updates status.
 - (void)updateStatus:(NSString *)status
 {
-    [_peerBluetoothContext updateStatus:status];
+    [_peerBluetooth updateStatus:status];
 }
 
 @end
 
-// TSNAppContext (TSNPeerBluetoothContextDelegate) implementation.
-@implementation TSNAppContext (TSNPeerBluetoothContextDelegate)
+// TSNAppContext (TSNPeerBluetoothDelegate) implementation.
+@implementation TSNAppContext (TSNPeerBluetoothDelegate)
 
 // Notifies the delegate that a peer was connected.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-    didConnectPeerIdentifier:(NSUUID *)peerIdentifier
-                    peerName:(NSString *)peerName
-                peerLocation:(CLLocation *)peerLocation
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didConnectPeerIdentifier:(NSUUID *)peerIdentifier
+             peerName:(NSString *)peerName
+         peerLocation:(CLLocation *)peerLocation
 {
     // Allocate and initialize the peer.
     TSNPeer * peer = [[TSNPeer alloc] initWithIdentifier:[peerIdentifier UUIDString]
@@ -182,8 +182,8 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 }
 
 // Notifies the delegate that a peer was disconnected.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
- didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
 {
     // Lock.
     pthread_mutex_lock(&_mutex);
@@ -215,9 +215,9 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 }
 
 // Notifies the delegate that a peer updated its location.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-      didReceivePeerLocation:(CLLocation *)peerLocation
-          fromPeerIdentifier:(NSUUID *)peerIdentifier
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didReceivePeerLocation:(CLLocation *)peerLocation
+   fromPeerIdentifier:(NSUUID *)peerIdentifier
 {
     // Lock.
     pthread_mutex_lock(&_mutex);
@@ -244,9 +244,9 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
 }
 
 // Notifies the delegate that a peer status was received.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-        didReceivePeerStatus:(NSString *)peerStatus
-          fromPeerIdentifier:(NSUUID *)peerIdentifier
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+ didReceivePeerStatus:(NSString *)peerStatus
+   fromPeerIdentifier:(NSUUID *)peerIdentifier
 {
     // Lock.
     pthread_mutex_lock(&_mutex);
@@ -299,7 +299,7 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
     pthread_mutex_unlock(&_mutex);
     
     // Update our location in the peer Bluetooth context to share it with peers.
-    [_peerBluetoothContext updateLocation:location];
+    [_peerBluetooth updateLocation:location];
 
     // Post the TSNLocationUpdatedNotification so the rest of the app knows about the location update.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNLocationUpdatedNotification
@@ -354,10 +354,10 @@ NSString * const TSNPeerStatusNotification      = @"TSNPeerStatus";
     NSUUID * peerIdentifier = [[NSUUID alloc] initWithUUIDBytes:[peerIdentifierData bytes]];
     
     // Allocate and initialize the peer Bluetooth context.
-    _peerBluetoothContext = [[TSNPeerBluetoothContext alloc] initWithServiceType:serviceType
+    _peerBluetooth = [[TSNPeerBluetooth alloc] initWithServiceType:serviceType
                                                                   peerIdentifier:peerIdentifier
                                                                         peerName:[[UIDevice currentDevice] name]];
-    [_peerBluetoothContext setDelegate:(id<TSNPeerBluetoothContextDelegate>)self];
+    [_peerBluetooth setDelegate:(id<TSNPeerBluetoothDelegate>)self];
     
     // Allocate and initialize the location context.
     _locationContext = [[TSNLocationContext alloc] init];

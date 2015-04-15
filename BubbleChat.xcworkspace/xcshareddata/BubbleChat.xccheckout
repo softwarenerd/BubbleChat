@@ -10,14 +10,14 @@
 	<string>BubbleChat</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</key>
+		<key>8F08CD814B0928347D77E0EF09E5C813648D7EDF</key>
 		<string>github.com:softwarenerd/BubbleChat.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>BubbleChat.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</key>
+		<key>8F08CD814B0928347D77E0EF09E5C813648D7EDF</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</string>
+	<string>8F08CD814B0928347D77E0EF09E5C813648D7EDF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7BA7F953A0FD3596E0F935D9D75D10FDD4B86B9A</string>
+			<string>8F08CD814B0928347D77E0EF09E5C813648D7EDF</string>
 			<key>IDESourceControlWCCName</key>
 			<string>BubbleChat</string>
 		</dict>

@@ -1,6 +1,6 @@
 #include "Pods-TSNExtensions.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/TSNExtensions" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/TSNAtomicFlag" "${PODS_ROOT}/Headers/Public/TSNExtensions"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/TSNExtensions" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/TSNAtomicFlag" "${PODS_ROOT}/Headers/Public/TSNExtensions" "${PODS_ROOT}/Headers/Public/TSNPeerBluetooth"
 OTHER_LDFLAGS = ${PODS_TSNEXTENSIONS_OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

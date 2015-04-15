@@ -21,13 +21,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//  BackgroundBLE
-//  TSNPeerBluetoothContext.m
+//  TSNPeerBluetooth
+//  TSNPeerBluetooth.m
 //
 
 #import <pthread.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "TSNPeerBluetoothContext.h"
+#import "TSNPeerBluetooth.h"
 
 // WHPErrorCode enumeration.
 typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
@@ -84,20 +84,20 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 
 @end
 
-// TSNPeerBluetoothContext (CBPeripheralManagerDelegate) interface.
-@interface TSNPeerBluetoothContext (CBPeripheralManagerDelegate) <CBPeripheralManagerDelegate>
+// TSNPeerBluetooth (CBPeripheralManagerDelegate) interface.
+@interface TSNPeerBluetooth (CBPeripheralManagerDelegate) <CBPeripheralManagerDelegate>
 @end
 
-// TSNPeerBluetoothContext (CBCentralManagerDelegate) interface.
-@interface TSNPeerBluetoothContext (CBCentralManagerDelegate) <CBCentralManagerDelegate>
+// TSNPeerBluetooth (CBCentralManagerDelegate) interface.
+@interface TSNPeerBluetooth (CBCentralManagerDelegate) <CBCentralManagerDelegate>
 @end
 
-// TSNPeerBluetoothContext (CBPeripheralDelegate) interface.
-@interface TSNPeerBluetoothContext (CBPeripheralDelegate) <CBPeripheralDelegate>
+// TSNPeerBluetooth (CBPeripheralDelegate) interface.
+@interface TSNPeerBluetooth (CBPeripheralDelegate) <CBPeripheralDelegate>
 @end
 
-// TSNPeerBluetoothContext (Internal) interface.
-@interface TSNPeerBluetoothContext (Internal)
+// TSNPeerBluetooth (Internal) interface.
+@interface TSNPeerBluetooth (Internal)
 
 // Starts advertising.
 - (void)startAdvertising;
@@ -125,8 +125,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 
 @end
 
-// TSNPeerBluetoothContext implementation.
-@implementation TSNPeerBluetoothContext
+// TSNPeerBluetooth implementation.
+@implementation TSNPeerBluetooth
 {
 @private
     // The peer identifier.
@@ -311,7 +311,7 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     }
 }
 
-// Starts the peer Bluetooth context.
+// Starts peer Bluetooth.
 - (void)start
 {
     if (!_enabled)
@@ -322,7 +322,7 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     }
 }
 
-// Stops the peer Bluetooth context.
+// Stops peer Bluetooth.
 - (void)stop
 {
     if (_enabled)
@@ -348,8 +348,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 
 @end
 
-// TSNPeerBluetoothContext (CBPeripheralManagerDelegate) implementation.
-@implementation TSNPeerBluetoothContext (CBPeripheralManagerDelegate)
+// TSNPeerBluetooth (CBPeripheralManagerDelegate) implementation.
+@implementation TSNPeerBluetooth (CBPeripheralManagerDelegate)
 
 // Invoked whenever the peripheral manager's state has been updated.
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheralManager
@@ -413,8 +413,8 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 
 @end
 
-// TSNPeerBluetoothContext (CBCentralManagerDelegate) implementation.
-@implementation TSNPeerBluetoothContext (CBCentralManagerDelegate)
+// TSNPeerBluetooth (CBCentralManagerDelegate) implementation.
+@implementation TSNPeerBluetooth (CBCentralManagerDelegate)
 
 // Invoked whenever the central manager's state has been updated.
 - (void)centralManagerDidUpdateState:(CBCentralManager *)centralManager
@@ -506,10 +506,10 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
         // Notify the delegate.
         if ([peerDescriptor peerName])
         {
-            if ([[self delegate] respondsToSelector:@selector(peerBluetoothContext:didDisconnectPeerIdentifier:)])
+            if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didDisconnectPeerIdentifier:)])
             {
-                [[self delegate] peerBluetoothContext:self
-                          didDisconnectPeerIdentifier:[peerDescriptor peerID]];
+                [[self delegate] peerBluetooth:self
+                   didDisconnectPeerIdentifier:[peerDescriptor peerID]];
             }
         }
         
@@ -523,8 +523,8 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
 
 @end
 
-// TSNPeerBluetoothContext (CBPeripheralDelegate) implementation.
-@implementation TSNPeerBluetoothContext (CBPeripheralDelegate)
+// TSNPeerBluetooth (CBPeripheralDelegate) implementation.
+@implementation TSNPeerBluetooth (CBPeripheralDelegate)
 
 // Invoked when services are discovered.
 - (void)peripheral:(CBPeripheral *)peripheral
@@ -614,11 +614,11 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
                                                                        longitude:*longitude]];
             
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetoothContext:didReceivePeerLocation:fromPeerIdentifier:)])
+            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerLocation:fromPeerIdentifier:)])
             {
-                [[self delegate] peerBluetoothContext:self
-                               didReceivePeerLocation:[peerDescriptor peerLocation]
-                                   fromPeerIdentifier:[peerDescriptor peerID]];
+                [[self delegate] peerBluetooth:self
+                        didReceivePeerLocation:[peerDescriptor peerLocation]
+                            fromPeerIdentifier:[peerDescriptor peerID]];
             }
         }
     }
@@ -626,12 +626,12 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     {
         if ([[characteristic value] length])
         {
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetoothContext:didReceivePeerStatus:fromPeerIdentifier:)])
+            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerStatus:fromPeerIdentifier:)])
             {
-                [[self delegate] peerBluetoothContext:self
-                                 didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
-                                                                            encoding:NSUTF8StringEncoding]
-                                   fromPeerIdentifier:[peerDescriptor peerID]];
+                [[self delegate] peerBluetooth:self
+                          didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
+                                                                     encoding:NSUTF8StringEncoding]
+                            fromPeerIdentifier:[peerDescriptor peerID]];
             }
         }
     }
@@ -643,20 +643,20 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         [peerDescriptor setState:TSNPeerDescriptorStateConnected];
 
         // Notify the delegate that the peer is connected.
-        if ([[self delegate] respondsToSelector:@selector(peerBluetoothContext:didConnectPeerIdentifier:peerName:peerLocation:)])
+        if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didConnectPeerIdentifier:peerName:peerLocation:)])
         {
-            [[self delegate] peerBluetoothContext:self
-                         didConnectPeerIdentifier:[peerDescriptor peerID]
-                                         peerName:[peerDescriptor peerName]
-                                     peerLocation:[peerDescriptor peerLocation]];
+            [[self delegate] peerBluetooth:self
+                  didConnectPeerIdentifier:[peerDescriptor peerID]
+                                  peerName:[peerDescriptor peerName]
+                              peerLocation:[peerDescriptor peerLocation]];
         }
     }
 }
 
 @end
 
-// TSNPeerBluetoothContext (Internal) implementation.
-@implementation TSNPeerBluetoothContext (Internal)
+// TSNPeerBluetooth (Internal) implementation.
+@implementation TSNPeerBluetooth (Internal)
 
 // Starts advertising.
 - (void)startAdvertising

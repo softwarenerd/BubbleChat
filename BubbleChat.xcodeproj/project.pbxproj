@@ -15,7 +15,6 @@
 		D3E8CFB91ADD9DC7000B8820 /* TSNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF711ADD9DC7000B8820 /* TSNAppDelegate.m */; };
 		D3E8CFBF1ADD9DC7000B8820 /* TSNLocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF811ADD9DC7000B8820 /* TSNLocationContext.m */; };
 		D3E8CFC01ADD9DC7000B8820 /* TSNPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */; };
-		D3E8CFC11ADD9DC7000B8820 /* TSNPeerBluetoothContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */; };
 		D3E8CFC31ADD9DC7000B8820 /* TSNPeerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF901ADD9DC7000B8820 /* TSNPeerStatus.m */; };
 		D3E8CFC41ADD9DC7000B8820 /* TSNAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF931ADD9DC7000B8820 /* TSNAppView.m */; };
 		D3E8CFC51ADD9DC7000B8820 /* TSNAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8CF951ADD9DC7000B8820 /* TSNAppViewController.m */; };
@@ -47,9 +46,6 @@
 		D3E8CF821ADD9DC7000B8820 /* TSNLocationContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNLocationContextDelegate.h; sourceTree = "<group>"; };
 		D3E8CF841ADD9DC7000B8820 /* TSNPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeer.h; sourceTree = "<group>"; };
 		D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeer.m; sourceTree = "<group>"; };
-		D3E8CF871ADD9DC7000B8820 /* TSNPeerBluetoothContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerBluetoothContext.h; sourceTree = "<group>"; };
-		D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeerBluetoothContext.m; sourceTree = "<group>"; };
-		D3E8CF891ADD9DC7000B8820 /* TSNPeerBluetoothContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerBluetoothContextDelegate.h; sourceTree = "<group>"; };
 		D3E8CF8F1ADD9DC7000B8820 /* TSNPeerStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNPeerStatus.h; sourceTree = "<group>"; };
 		D3E8CF901ADD9DC7000B8820 /* TSNPeerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSNPeerStatus.m; sourceTree = "<group>"; };
 		D3E8CF921ADD9DC7000B8820 /* TSNAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSNAppView.h; sourceTree = "<group>"; };
@@ -146,7 +142,6 @@
 				D3E8CF6F1ADD9DC7000B8820 /* AppDelegate */,
 				D3E8CF7F1ADD9DC7000B8820 /* LocationContext */,
 				D3E8CF831ADD9DC7000B8820 /* Peer */,
-				D3E8CF861ADD9DC7000B8820 /* PeerBluetoothContext */,
 				D3E8CF8E1ADD9DC7000B8820 /* PeerStatus */,
 				D3E8CF911ADD9DC7000B8820 /* UI */,
 			);
@@ -196,16 +191,6 @@
 				D3E8CF851ADD9DC7000B8820 /* TSNPeer.m */,
 			);
 			path = Peer;
-			sourceTree = "<group>";
-		};
-		D3E8CF861ADD9DC7000B8820 /* PeerBluetoothContext */ = {
-			isa = PBXGroup;
-			children = (
-				D3E8CF871ADD9DC7000B8820 /* TSNPeerBluetoothContext.h */,
-				D3E8CF881ADD9DC7000B8820 /* TSNPeerBluetoothContext.m */,
-				D3E8CF891ADD9DC7000B8820 /* TSNPeerBluetoothContextDelegate.h */,
-			);
-			path = PeerBluetoothContext;
 			sourceTree = "<group>";
 		};
 		D3E8CF8E1ADD9DC7000B8820 /* PeerStatus */ = {
@@ -364,7 +349,6 @@
 				D3E8CFD21ADD9DC7000B8820 /* TSNNearbyPeerAnnotation.m in Sources */,
 				D3E8CFD11ADD9DC7000B8820 /* TSNNearbyPeerTableViewCell.m in Sources */,
 				D398FE0F1ADDC9A000D32520 /* TSNBubbleTableViewCell.m in Sources */,
-				D3E8CFC11ADD9DC7000B8820 /* TSNPeerBluetoothContext.m in Sources */,
 				D3E8CFB71ADD9DC7000B8820 /* main.m in Sources */,
 				D3E8CFC01ADD9DC7000B8820 /* TSNPeer.m in Sources */,
 				D3E8CFCB1ADD9DC7000B8820 /* TSNLocalPeerTableViewCell.m in Sources */,

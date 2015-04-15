@@ -21,19 +21,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//  BackgroundBLE
-//  TSNPeerBluetoothContext.h
+//  TSNPeerBluetooth
+//  TSNPeerBluetooth.h
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "TSNPeerBluetoothContextDelegate.h"
+#import "TSNPeerBluetoothDelegate.h"
 
-// TSNPeerBluetoothContext interface.
-@interface TSNPeerBluetoothContext : NSObject
+// TSNPeerBluetooth interface.
+@interface TSNPeerBluetooth : NSObject
 
 // Properties.
-@property (nonatomic, weak) id<TSNPeerBluetoothContextDelegate> delegate;
+@property (nonatomic, weak) id<TSNPeerBluetoothDelegate> delegate;
 @property (nonatomic) NSString * peerName;
 
 // Class initializer.
@@ -41,10 +41,10 @@
                      peerIdentifier:(NSUUID *)peerIdentifier
                            peerName:(NSString *)peerName;
 
-// Starts the peer Bluetooth context.
+// Starts peer Bluetooth.
 - (void)start;
 
-// Stops the peer Bluetooth context.
+// Stops peer Bluetooth.
 - (void)stop;
 
 // Updates the location.

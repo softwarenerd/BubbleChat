@@ -21,42 +21,36 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//  BackgroundBLE
-//  TSNPeerBluetoothContextDelegate.h
+//  TSNPeerBluetooth
+//  TSNPeerBluetoothDelegate.h
 //
 
 // Forward declarations.
 @class CLLocation;
-@class TSNPeerBluetoothContext;
+@class TSNPeerBluetooth;
 
-// TSNPeerBluetoothContextDelegate protocol.
-@protocol TSNPeerBluetoothContextDelegate <NSObject>
-@optional
-
-// Notifies the delegate that a log message was written.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-               didLogMessage:(NSString *)message;
-
+// TSNPeerBluetoothDelegate protocol.
+@protocol TSNPeerBluetoothDelegate <NSObject>
 @required
 
 // Notifies the delegate that a peer was connected.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-    didConnectPeerIdentifier:(NSUUID *)peerIdentifier
-                    peerName:(NSString *)peerName
-                peerLocation:(CLLocation *)peerLocation;
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didConnectPeerIdentifier:(NSUUID *)peerIdentifier
+             peerName:(NSString *)peerName
+         peerLocation:(CLLocation *)peerLocation;
 
 // Notifies the delegate that a peer was disconnected.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
- didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier;
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier;
 
 // Notifies the delegate that a peer location was received.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-      didReceivePeerLocation:(CLLocation *)peerLocation
-          fromPeerIdentifier:(NSUUID *)peerIdentifier;
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+didReceivePeerLocation:(CLLocation *)peerLocation
+   fromPeerIdentifier:(NSUUID *)peerIdentifier;
 
 // Notifies the delegate that a peer status was received.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-        didReceivePeerStatus:(NSString *)peerStatus
-          fromPeerIdentifier:(NSUUID *)peerIdentifier;
+- (void)peerBluetooth:(TSNPeerBluetooth *)peerBluetooth
+ didReceivePeerStatus:(NSString *)peerStatus
+   fromPeerIdentifier:(NSUUID *)peerIdentifier;
 
 @end
