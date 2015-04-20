@@ -29,6 +29,22 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "TSNPeerBluetooth.h"
 
+// Returns a new NSData fro the specified location coordinate.
+static inline NSData * dataForLocationCoordinate(CLLocationCoordinate2D locationCoordinate)
+{
+    // Construct and return an NSData with the location.
+    NSMutableData * data = [[NSMutableData alloc] initWithCapacity:sizeof(CLLocationDegrees) * 2];
+    [data appendBytes:&locationCoordinate.latitude
+               length:sizeof(locationCoordinate.latitude)];
+    [data appendBytes:&locationCoordinate.longitude
+               length:sizeof(locationCoordinate.longitude)];
+    return data;
+
+}
+
+// The maximum status length is 140 charactyers * 4 bytes (the maximum UTF-8 bytes per character).
+const NSUInteger kMaxStatusDataLength = 140 * 4;
+
 // WHPErrorCode enumeration.
 typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 {
@@ -46,6 +62,11 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 @property (nonatomic) NSString * peerName;
 @property (nonatomic) CLLocation * peerLocation;
 @property (nonatomic) TSNPeerDescriptorState state;
+@property (nonatomic) CBCharacteristic * characteristicPeerStatus1;
+@property (nonatomic) CBCharacteristic * characteristicPeerStatus2;
+@property (nonatomic) CBCharacteristic * characteristicPeerStatus3;
+@property (nonatomic) CBCharacteristic * characteristicPeerStatus4;
+@property (nonatomic) CBCharacteristic * characteristicPeerStatus5;
 
 // Class initializer.
 - (instancetype)initWithPeripheral:(CBPeripheral *)peripheral
@@ -115,10 +136,10 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 - (void)updatePeerNameCharacteristic;
 
 // Updates the peer location characteristic.
-- (void)updatePeerLocationCharacteristic;
+- (void)updatePeerLocationCharacteristic:(CLLocation *)location;
 
 // Updates the peer status characteristic.
-- (void)updatePeerStatusCharacteristic:(NSString *)peerMessage;
+- (BOOL)updatePeerStatusCharacteristic:(NSString *)status;
 
 // Gets the peer location data.
 - (NSData *)peerLocationData;
@@ -156,9 +177,36 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The peer location type.
     CBUUID * _peerLocationType;
 
-    // The peer status type.
-    CBUUID * _peerStatusType;
+    // The peer status 1 updated at type.
+    CBUUID * _peerStatus1UpdatedAtType;
     
+    // The peer status 2 updated at type.
+    CBUUID * _peerStatus2UpdatedAtType;
+    
+    // The peer status 3 updated at type.
+    CBUUID * _peerStatus3UpdatedAtType;
+    
+    // The peer status 4 updated at type.
+    CBUUID * _peerStatus4UpdatedAtType;
+    
+    // The peer status 5 updated at type.
+    CBUUID * _peerStatus5UpdatedAtType;
+
+    // The peer status 1 type.
+    CBUUID * _peerStatus1Type;
+
+    // The peer status 2 type.
+    CBUUID * _peerStatus2Type;
+
+    // The peer status 3 type.
+    CBUUID * _peerStatus3Type;
+
+    // The peer status 4 type.
+    CBUUID * _peerStatus4Type;
+
+    // The peer status 5 type.
+    CBUUID * _peerStatus5Type;
+
     // The service.
     CBMutableService * _service;
     
@@ -171,9 +219,36 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The peer locaton characteristic.
     CBMutableCharacteristic * _characteristicPeerLocation;
 
-    // The peer status characteristic.
-    CBMutableCharacteristic * _characteristicPeerStatus;
+    // The peer status 1 updated at characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus1UpdatedAt;
+    
+    // The peer status 2 updated at characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus2UpdatedAt;
+    
+    // The peer status 3 updated at characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus3UpdatedAt;
+    
+    // The peer status 4 updated at characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus4UpdatedAt;
+    
+    // The peer status 5 updated at characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus5UpdatedAt;
+    
+    // The peer status 1 characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus1;
 
+    // The peer status 2 characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus2;
+
+    // The peer status 3 characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus3;
+
+    // The peer status 4 characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus4;
+
+    // The peer status 5 characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus5;
+    
     // The advertising data.
     NSDictionary * _advertisingData;
     
@@ -186,11 +261,28 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Mutex used to synchronize accesss to peers.
     pthread_mutex_t _mutex;
     
-    // The last location coordinate.
-    CLLocationCoordinate2D _lastLocationCoordinate;
+    // The location coordinate.
+    CLLocationCoordinate2D _locationCoordinate;
+    
+    // The status 1 data.
+    NSData * _status1Data;
+
+    // The status 2 data.
+    NSData * _status2Data;
+
+    // The status 3 data.
+    NSData * _status3Data;
+
+    // The status 4 data.
+    NSData * _status4Data;
+
+    // The status 5 data.
+    NSData * _status5Data;
 
     // The peers dictionary.
     NSMutableDictionary * _peers;
+
+    NSUInteger _statusIndex;
 }
 
 // Class initializer.
@@ -213,6 +305,7 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     _peerName = peerName;
     _canonicalPeerName = [_peerName dataUsingEncoding:NSUTF8StringEncoding];
     
+    // Initialize the peer identifier value.
     UInt8 uuid[16];
     [_peerIdentifier getUUIDBytes:uuid];
     NSData * peerIdentifierValue = [NSData dataWithBytes:uuid
@@ -227,8 +320,35 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Allocate and initialize the peer location type.
     _peerLocationType = [CBUUID UUIDWithString:@"1EA08229-38D7-4927-98EC-113723C30C1B"];
 
-    // Allocate and initialize the peer status type.
-    _peerStatusType = [CBUUID UUIDWithString:@"3211022A-EEF4-4522-A5CE-47E60342FFB5"];
+    // Allocate and initialize the peer status 1 updated at type.
+    _peerStatus1UpdatedAtType = [CBUUID UUIDWithString:@"1D4D00AA-49EC-4368-9FFA-5682D1A6D4B2"];
+    
+    // Allocate and initialize the peer status 2 updated at type.
+    _peerStatus2UpdatedAtType = [CBUUID UUIDWithString:@"A81EB929-1082-4CD5-820B-141D64119786"];
+    
+    // Allocate and initialize the peer status 3 updated at type.
+    _peerStatus3UpdatedAtType = [CBUUID UUIDWithString:@"6BDB663C-E464-4116-90E0-3ED8E2019D49"];
+    
+    // Allocate and initialize the peer status 4 updated at type.
+    _peerStatus4UpdatedAtType = [CBUUID UUIDWithString:@"8F122301-1994-4891-8842-9E76D78629B2"];
+    
+    // Allocate and initialize the peer status 5 updated at type.
+    _peerStatus5UpdatedAtType = [CBUUID UUIDWithString:@"C84354E3-710C-47B7-B082-3E2FC861287A"];
+
+    // Allocate and initialize the peer status 1 type.
+    _peerStatus1Type = [CBUUID UUIDWithString:@"3211022A-EEF4-4522-A5CE-47E60342FFB5"];
+    
+    // Allocate and initialize the peer status 2 type.
+    _peerStatus2Type = [CBUUID UUIDWithString:@"B674CE1E-580A-49C5-A12D-59DD58FEF4CF"];
+
+    // Allocate and initialize the peer status 3 type.
+    _peerStatus3Type = [CBUUID UUIDWithString:@"DE085020-4BE2-4866-8133-9E1BEE9E7E66"];
+
+    // Allocate and initialize the peer status 4 type.
+    _peerStatus4Type = [CBUUID UUIDWithString:@"6F603273-7B82-4BB8-8786-117D7FE1D7F8"];
+
+    // Allocate and initialize the peer status 5 type.
+    _peerStatus5Type = [CBUUID UUIDWithString:@"9F52394C-0289-4628-92ED-735FA35CE0D4"];
     
     // Allocate and initialize the service.
     _service = [[CBMutableService alloc] initWithType:_serviceType
@@ -242,8 +362,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 
     // Allocate and initialize the peer name characteristic.
     _characteristicPeerName = [[CBMutableCharacteristic alloc] initWithType:_peerNameType
-                                                                 properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyNotify
-                                                                      value:nil
+                                                                 properties:CBCharacteristicPropertyRead
+                                                                      value:_canonicalPeerName
                                                                 permissions:CBAttributePermissionsReadable];
 
     // Allocate and initialize the peer location characteristic.
@@ -252,17 +372,80 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
                                                                       value:nil
                                                                 permissions:CBAttributePermissionsReadable];
 
-    // Allocate and initialize the peer status characteristic.
-    _characteristicPeerStatus = [[CBMutableCharacteristic alloc] initWithType:_peerStatusType
-                                                                   properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyNotify
-                                                                        value:nil
-                                                                  permissions:CBAttributePermissionsReadable];
-
+    // Allocate and initialize the peer status 1 updated at characteristic.
+    _characteristicPeerStatus1UpdatedAt = [[CBMutableCharacteristic alloc] initWithType:_peerStatus1UpdatedAtType
+                                                                    properties:CBCharacteristicPropertyNotify
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 2 updated at characteristic.
+    _characteristicPeerStatus2UpdatedAt = [[CBMutableCharacteristic alloc] initWithType:_peerStatus2UpdatedAtType
+                                                                    properties:CBCharacteristicPropertyNotify
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 3 updated at characteristic.
+    _characteristicPeerStatus3UpdatedAt = [[CBMutableCharacteristic alloc] initWithType:_peerStatus3UpdatedAtType
+                                                                    properties:CBCharacteristicPropertyNotify
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 4 updated at characteristic.
+    _characteristicPeerStatus4UpdatedAt = [[CBMutableCharacteristic alloc] initWithType:_peerStatus4UpdatedAtType
+                                                                    properties:CBCharacteristicPropertyNotify
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 5 updated at characteristic.
+    _characteristicPeerStatus5UpdatedAt = [[CBMutableCharacteristic alloc] initWithType:_peerStatus5UpdatedAtType
+                                                                    properties:CBCharacteristicPropertyNotify
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 1 characteristic.
+    _characteristicPeerStatus1 = [[CBMutableCharacteristic alloc] initWithType:_peerStatus1Type
+                                                                    properties:CBCharacteristicPropertyRead
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 2 characteristic.
+    _characteristicPeerStatus2 = [[CBMutableCharacteristic alloc] initWithType:_peerStatus2Type
+                                                                    properties:CBCharacteristicPropertyRead
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 3 characteristic.
+    _characteristicPeerStatus3 = [[CBMutableCharacteristic alloc] initWithType:_peerStatus3Type
+                                                                    properties:CBCharacteristicPropertyRead
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 4 characteristic.
+    _characteristicPeerStatus4 = [[CBMutableCharacteristic alloc] initWithType:_peerStatus4Type
+                                                                    properties:CBCharacteristicPropertyRead
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
+    // Allocate and initialize the peer status 5 characteristic.
+    _characteristicPeerStatus5 = [[CBMutableCharacteristic alloc] initWithType:_peerStatus5Type
+                                                                    properties:CBCharacteristicPropertyRead
+                                                                         value:nil
+                                                                   permissions:CBAttributePermissionsReadable];
+    
     // Set the service characteristics.
     [_service setCharacteristics:@[_characteristicPeerID,
                                    _characteristicPeerName,
                                    _characteristicPeerLocation,
-                                   _characteristicPeerStatus]];
+                                   _characteristicPeerStatus1UpdatedAt,
+                                   _characteristicPeerStatus2UpdatedAt,
+                                   _characteristicPeerStatus3UpdatedAt,
+                                   _characteristicPeerStatus4UpdatedAt,
+                                   _characteristicPeerStatus5UpdatedAt,
+                                   _characteristicPeerStatus1,
+                                   _characteristicPeerStatus2,
+                                   _characteristicPeerStatus3,
+                                   _characteristicPeerStatus4,
+                                   _characteristicPeerStatus5]];
     
     // Allocate and initialize the advertising data.
     _advertisingData = @{CBAdvertisementDataServiceUUIDsKey:    @[_serviceType],
@@ -279,7 +462,6 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     _centralManager = [[CBCentralManager alloc] initWithDelegate:(id<CBCentralManagerDelegate>)self
                                                            queue:backgroundQueue];
     
-
     // Initialize
     pthread_mutex_init(&_mutex, NULL);
    
@@ -289,26 +471,6 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     
     // Done.
     return self;
-}
-
-// Gets the peer name.
-- (NSString *)peerName
-{
-    return _peerName;
-}
-
-// Sets the peer name.
-- (void)setPeerName:(NSString *)peerName
-{
-    if (![_peerName isEqualToString:_peerName])
-    {
-        _peerName = peerName;
-        _canonicalPeerName = [_peerName dataUsingEncoding:NSUTF8StringEncoding];
-        if (_enabled)
-        {
-            [self updatePeerNameCharacteristic];
-        }
-    }
 }
 
 // Starts peer Bluetooth.
@@ -336,14 +498,14 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 // Updates the location.
 - (void)updateLocation:(CLLocation *)location
 {
-    _lastLocationCoordinate = [location coordinate];
-    [self updatePeerLocationCharacteristic];
+    [self updatePeerLocationCharacteristic:location];
 }
 
-// Updates the status.
-- (void)updateStatus:(NSString *)status
+// Updates the status. Returns YES if successful; otherwise, NO. A return value of NO
+// indicates that the status string was too long.
+- (BOOL)updateStatus:(NSString *)status
 {
-    [self updatePeerStatusCharacteristic:status];
+    return [self updatePeerStatusCharacteristic:status];
 }
 
 @end
@@ -381,18 +543,92 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
     didReceiveReadRequest:(CBATTRequest *)request
 {
-    // Process the characteristic being read.
-    if ([[[request characteristic] UUID] isEqual:_peerNameType])
+    if ([[[request characteristic] UUID] isEqual:_peerLocationType])
     {
-        [request setValue:_canonicalPeerName];
-        [peripheralManager respondToRequest:request
-                                 withResult:CBATTErrorSuccess];
+        if ([request offset] > 0)
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            pthread_mutex_lock(&_mutex);
+            CLLocationCoordinate2D locationCoordinate = _locationCoordinate;
+            pthread_mutex_unlock(&_mutex);
+            [request setValue:dataForLocationCoordinate(locationCoordinate)];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
     }
-    else if ([[[request characteristic] UUID] isEqual:_peerLocationType])
+    else if ([[[request characteristic] UUID] isEqual:_peerStatus1Type])
     {
-        [request setValue:[self peerLocationData]];
-        [peripheralManager respondToRequest:request
-                                 withResult:CBATTErrorSuccess];
+        if ([request offset] >= [_status1Data length])
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            [request setValue:[_status1Data subdataWithRange:NSMakeRange([request offset], [_status1Data length] - [request offset])]];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
+    }
+    else if ([[[request characteristic] UUID] isEqual:_peerStatus2Type])
+    {
+        if ([request offset] >= [_status2Data length])
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            [request setValue:[_status2Data subdataWithRange:NSMakeRange([request offset], [_status2Data length] - [request offset])]];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
+    }
+    else if ([[[request characteristic] UUID] isEqual:_peerStatus3Type])
+    {
+        if ([request offset] >= [_status3Data length])
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            [request setValue:[_status3Data subdataWithRange:NSMakeRange([request offset], [_status3Data length] - [request offset])]];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
+    }
+    else if ([[[request characteristic] UUID] isEqual:_peerStatus4Type])
+    {
+        if ([request offset] >= [_status4Data length])
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            [request setValue:[_status4Data subdataWithRange:NSMakeRange([request offset], [_status4Data length] - [request offset])]];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
+    }
+    else if ([[[request characteristic] UUID] isEqual:_peerStatus5Type])
+    {
+        if ([request offset] >= [_status5Data length])
+        {
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorInvalidOffset];
+        }
+        else
+        {
+            [request setValue:[_status5Data subdataWithRange:NSMakeRange([request offset], [_status5Data length] - [request offset])]];
+            [peripheralManager respondToRequest:request
+                                     withResult:CBATTErrorSuccess];
+        }
     }
 }
 
@@ -401,9 +637,6 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
                   central:(CBCentral *)central
 didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    // Request low latency for the central.
-    [_peripheralManager setDesiredConnectionLatency:CBPeripheralManagerConnectionLatencyLow
-                                         forCentral:central];
 }
 
 // Invoked after a failed call to update a characteristic.
@@ -539,7 +772,16 @@ didDiscoverServices:(NSError *)error
             [peripheral discoverCharacteristics:@[_peerIDType,
                                                   _peerNameType,
                                                   _peerLocationType,
-                                                  _peerStatusType]
+                                                  _peerStatus1UpdatedAtType,
+                                                  _peerStatus2UpdatedAtType,
+                                                  _peerStatus3UpdatedAtType,
+                                                  _peerStatus4UpdatedAtType,
+                                                  _peerStatus5UpdatedAtType,
+                                                  _peerStatus1Type,
+                                                  _peerStatus2Type,
+                                                  _peerStatus3Type,
+                                                  _peerStatus4Type,
+                                                  _peerStatus5Type]
                                      forService:service];
         }
     }
@@ -550,9 +792,26 @@ didDiscoverServices:(NSError *)error
 didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error
 {
+    // Get the peripheral identifier string.
+    NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
+    
+    // Obtain the peer descriptor.
+    TSNPeerDescriptor * peerDescriptor = _peers[peripheralIdentifierString];
+    if (!peerDescriptor)
+    {
+        return;
+    }
+    
+    [peerDescriptor setCharacteristicPeerStatus1:nil];
+    [peerDescriptor setCharacteristicPeerStatus2:nil];
+    [peerDescriptor setCharacteristicPeerStatus3:nil];
+    [peerDescriptor setCharacteristicPeerStatus4:nil];
+    [peerDescriptor setCharacteristicPeerStatus5:nil];
+
     // If this is our service, process its discovered characteristics.
     if ([[service UUID] isEqual:_serviceType])
     {
+        // Process each of the discovered characteristics.
         for (CBCharacteristic * characteristic in [service characteristics])
         {
             if ([[characteristic UUID] isEqual:_peerIDType])
@@ -562,8 +821,6 @@ didDiscoverCharacteristicsForService:(CBService *)service
             else if ([[characteristic UUID] isEqual:_peerNameType])
             {
                 [peripheral readValueForCharacteristic:characteristic];
-                [peripheral setNotifyValue:YES
-                         forCharacteristic:characteristic];
             }
             else if ([[characteristic UUID] isEqual:_peerLocationType])
             {
@@ -571,10 +828,34 @@ didDiscoverCharacteristicsForService:(CBService *)service
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
             }
-            else if ([[characteristic UUID] isEqual:_peerStatusType])
+            else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType] ||
+                     [[characteristic UUID] isEqual:_peerStatus2UpdatedAtType] ||
+                     [[characteristic UUID] isEqual:_peerStatus3UpdatedAtType] ||
+                     [[characteristic UUID] isEqual:_peerStatus4UpdatedAtType] ||
+                     [[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
             {
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
+            }
+            else if ([[characteristic UUID] isEqual:_peerStatus1Type])
+            {
+                [peerDescriptor setCharacteristicPeerStatus1:characteristic];
+            }
+            else if ([[characteristic UUID] isEqual:_peerStatus2Type])
+            {
+                [peerDescriptor setCharacteristicPeerStatus2:characteristic];
+            }
+            else if ([[characteristic UUID] isEqual:_peerStatus3Type])
+            {
+                [peerDescriptor setCharacteristicPeerStatus3:characteristic];
+            }
+            else if ([[characteristic UUID] isEqual:_peerStatus4Type])
+            {
+                [peerDescriptor setCharacteristicPeerStatus4:characteristic];
+            }
+            else if ([[characteristic UUID] isEqual:_peerStatus5Type])
+            {
+                [peerDescriptor setCharacteristicPeerStatus5:characteristic];
             }
         }
     }
@@ -595,18 +876,23 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         return;
     }
 
-    // Process the characteristic.
+    // Peer ID characteristic.
     if ([[characteristic UUID] isEqual:_peerIDType])
     {
+        // When the peer ID is updated, set the peer ID in the peer descriptor.
         [peerDescriptor setPeerID:[[NSUUID alloc] initWithUUIDBytes:[[characteristic value] bytes]]];
     }
+    // Peer name characteristic.
     else if ([[characteristic UUID] isEqual:_peerNameType])
     {
+        // When the peer name is updated, set the peer name in the peer descriptor.
         [peerDescriptor setPeerName:[[NSString alloc] initWithData:[characteristic value]
                                                           encoding:NSUTF8StringEncoding]];
     }
+    // Peer location characteristic.
     else if ([[characteristic UUID] isEqual:_peerLocationType])
     {
+        // When the peer location is updated, set the peer location in the peer descriptor.
         if ([[characteristic value] length] == sizeof(CLLocationDegrees) * 2)
         {
             CLLocationDegrees * latitude = (CLLocationDegrees *)[[characteristic value] bytes];
@@ -614,29 +900,74 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
                                                                        longitude:*longitude]];
             
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerLocation:fromPeerIdentifier:)])
+            // If the peer is fully initialized (it's in the connected state), notify the delegate.
+            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
             {
-                [[self delegate] peerBluetooth:self
-                        didReceivePeerLocation:[peerDescriptor peerLocation]
-                            fromPeerIdentifier:[peerDescriptor peerID]];
+                // Notify the delegate.
+                if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerLocation:fromPeerIdentifier:)])
+                {
+                    [[self delegate] peerBluetooth:self
+                            didReceivePeerLocation:[peerDescriptor peerLocation]
+                                fromPeerIdentifier:[peerDescriptor peerID]];
+                }
             }
         }
     }
-    else if ([[characteristic UUID] isEqual:_peerStatusType])
+    // Peer status 1 updated at characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType])
+    {
+        // Our signal to read the peer status 1 characteristic.
+        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus1]];
+    }
+    // Peer status 2 updated at characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus2UpdatedAtType])
+    {
+        // Our signal to read the peer status 2 characteristic.
+        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus2]];
+    }
+    // Peer status 3 updated at characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus3UpdatedAtType])
+    {
+        // Our signal to read the peer status 3 characteristic.
+        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus3]];
+    }
+    // Peer status 4 updated at characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus4UpdatedAtType])
+    {
+        // Our signal to read the peer status 4 characteristic.
+        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus4]];
+    }
+    // Peer status 5 updated at characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
+    {
+        // Our signal to read the peer status 5 characteristic.
+        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus5]];
+    }
+    // Peer status 1-5 characteristic.
+    else if ([[characteristic UUID] isEqual:_peerStatus1Type] ||
+             [[characteristic UUID] isEqual:_peerStatus2Type] ||
+             [[characteristic UUID] isEqual:_peerStatus3Type] ||
+             [[characteristic UUID] isEqual:_peerStatus4Type] ||
+             [[characteristic UUID] isEqual:_peerStatus5Type])
     {
         if ([[characteristic value] length])
         {
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerStatus:fromPeerIdentifier:)])
+            // If the peer is fully initialized (it's in the connected state), notify the delegate.
+            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
             {
-                [[self delegate] peerBluetooth:self
-                          didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
-                                                                     encoding:NSUTF8StringEncoding]
-                            fromPeerIdentifier:[peerDescriptor peerID]];
+                // Notify the delegate.
+                if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerStatus:fromPeerIdentifier:)])
+                {
+                    [[self delegate] peerBluetooth:self
+                              didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
+                                                                         encoding:NSUTF8StringEncoding]
+                                fromPeerIdentifier:[peerDescriptor peerID]];
+                }
             }
         }
     }
 
-    // Detect when the peer is fully initialized and move to the connected state.
+    // Detect when the peer is fully initialized and move it to the connected state.
     if ([peerDescriptor state] == TSNPeerDescriptorStateInitializing && [peerDescriptor peerID] && [peerDescriptor peerName] && [peerDescriptor peerLocation])
     {
         // Move the peer to the connected state.
@@ -699,37 +1030,93 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     }
 }
 
-// Updates the peer name characteristic.
-- (void)updatePeerNameCharacteristic
-{
-    if (_enabled)
-    {
-        [_peripheralManager updateValue:_canonicalPeerName
-                      forCharacteristic:_characteristicPeerName
-                   onSubscribedCentrals:nil];
-    }
-}
-
 // Updates the peer location characteristic.
-- (void)updatePeerLocationCharacteristic
+- (void)updatePeerLocationCharacteristic:(CLLocation *)location
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
+    // Set the location coordinate.
+    _locationCoordinate = [location coordinate];
+    
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
+
+    // Update the characteristic value.
     if (_enabled)
     {
-        [_peripheralManager updateValue:[self peerLocationData]
+        [_peripheralManager updateValue:dataForLocationCoordinate([location coordinate])
                       forCharacteristic:_characteristicPeerLocation
                    onSubscribedCentrals:nil];
     }
 }
 
 // Updates the peer status characteristic.
-- (void)updatePeerStatusCharacteristic:(NSString *)peerMessage
+- (BOOL)updatePeerStatusCharacteristic:(NSString *)status
 {
+    // Get the status data. If it's too long
+    NSData * statusData = [status dataUsingEncoding:NSUTF8StringEncoding];
+    if ([statusData length] > kMaxStatusDataLength)
+    {
+        return NO;
+    }
+    
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+    
+    CBCharacteristic * characteristic;
+    switch (_statusIndex)
+    {
+        case 0:
+            characteristic = _characteristicPeerStatus1UpdatedAt;
+            _status1Data = statusData;
+            _statusIndex++;
+            break;
+            
+        case 1:
+            characteristic = _characteristicPeerStatus2UpdatedAt;
+            _status2Data = statusData;
+            _statusIndex++;
+            break;
+            
+        case 2:
+            characteristic = _characteristicPeerStatus3UpdatedAt;
+            _status3Data = statusData;
+            _statusIndex++;
+            break;
+            
+        case 3:
+            characteristic = _characteristicPeerStatus4UpdatedAt;
+            _status4Data = statusData;
+            _statusIndex++;
+            break;
+            
+        case 4:
+            characteristic = _characteristicPeerStatus5UpdatedAt;
+            _status5Data = statusData;
+            _statusIndex = 0;
+            break;
+    }
+    
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
+
+    // If we're enabled, update the peer status characteristic value.
     if (_enabled)
     {
-        [_peripheralManager updateValue:[peerMessage dataUsingEncoding:NSUTF8StringEncoding]
-                      forCharacteristic:_characteristicPeerStatus
-                   onSubscribedCentrals:nil];
+        NSDate * now = [[NSDate alloc] init];
+        NSTimeInterval timeInterval = [now timeIntervalSince1970];
+        NSData * data = [NSData dataWithBytes:&timeInterval
+                                       length:sizeof(timeInterval)];
+        
+        // TODO deal with failure.
+        BOOL result = [_peripheralManager updateValue:data
+                                    forCharacteristic:characteristic
+                                 onSubscribedCentrals:nil];
     }
+
+    // Success.
+    return YES;
 }
 
 // Gets the peer location data.
@@ -737,15 +1124,15 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 {
     // Obtain the last location coordinate.
     pthread_mutex_lock(&_mutex);
-    CLLocationCoordinate2D lastLocationCoordinate = _lastLocationCoordinate;
+    CLLocationCoordinate2D locationCoordinate = _locationCoordinate;
     pthread_mutex_unlock(&_mutex);
     
     // Construct and return an NSData with the location.
     NSMutableData * data = [[NSMutableData alloc] initWithCapacity:sizeof(CLLocationDegrees) * 2];
-    [data appendBytes:&lastLocationCoordinate.latitude
-               length:sizeof(lastLocationCoordinate.latitude)];
-    [data appendBytes:&lastLocationCoordinate.longitude
-               length:sizeof(lastLocationCoordinate.longitude)];
+    [data appendBytes:&locationCoordinate.latitude
+               length:sizeof(locationCoordinate.latitude)];
+    [data appendBytes:&locationCoordinate.longitude
+               length:sizeof(locationCoordinate.longitude)];
     return data;
 }
 

@@ -34,7 +34,6 @@
 
 // Properties.
 @property (nonatomic, weak) id<TSNPeerBluetoothDelegate> delegate;
-@property (nonatomic) NSString * peerName;
 
 // Class initializer.
 - (instancetype)initWithServiceType:(NSUUID *)serviceType
@@ -50,7 +49,8 @@
 // Updates the location.
 - (void)updateLocation:(CLLocation *)location;
 
-// Updates the status.
-- (void)updateStatus:(NSString *)status;
+// Updates the status. Returns YES if successful; otherwise, NO. A return value of NO
+// indicates that the status string was too long.
+- (BOOL)updateStatus:(NSString *)status;
 
 @end
