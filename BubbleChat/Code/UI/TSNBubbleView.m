@@ -33,6 +33,9 @@
 #import "TSNLocalPeerTableViewCell.h"
 #import "TSNNearbyPeerTableViewCell.h"
 
+// The maximum status length.
+const NSUInteger kMaxStatusLength = 140;
+
 // Centers one thing (a) within another (b).
 CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
 {
@@ -45,6 +48,10 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
 
 // TSNBubbleView (UITableViewDelegate) interface.
 @interface TSNBubbleView (UITableViewDelegate) <UITableViewDelegate>
+@end
+
+// TSNBubbleView (UITextFieldDelegate) interface.
+@interface TSNBubbleView (UITextFieldDelegate) <UITextFieldDelegate>
 @end
 
 // TSNBubbleView (Internal) interface.
@@ -155,6 +162,7 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
     [_textField setFont:textFieldFont];
     [_textField setBackgroundColor:[UIColor whiteColor]];
     [_textField setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
+    [_textField setDelegate:(id<UITextFieldDelegate>)self];
     [_viewContainer addSubview:_textField];
     
     // Allocate, initialize, and add the send button.
@@ -250,6 +258,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Nothing yet.
+}
+
+@end
+
+// TSNBubbleView (UITextFieldDelegate) implementation.
+@implementation TSNBubbleView (UITextFieldDelegate)
+
+// Asks the delegate if the specified text should be changed.
+- (BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string
+{
+    return [[textField text] length] + [string length] - range.length <= kMaxStatusLength ? YES : NO;
 }
 
 @end

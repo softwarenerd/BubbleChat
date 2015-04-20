@@ -48,9 +48,6 @@
     
     // The app view controller.
     TSNAppViewController * _appViewController;
-    
-    UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
-
 }
 
 @end
