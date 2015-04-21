@@ -84,6 +84,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [_appWindow setRootViewController:_appViewController];
     [_appWindow makeKeyAndVisible];
     
+    // Start communications running.
     [[TSNAppContext singleton] startCommunications];
     
     // Success.

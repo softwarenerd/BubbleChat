@@ -29,6 +29,10 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "TSNPeerBluetooth.h"
 
+// The maximum status length is 140 characters * 4 bytes (the maximum UTF-8 bytes per character).
+const NSUInteger kMaxStatusDataLength = 140 * 4;
+const NSUInteger kMaxPeerNameLength = 100;
+
 // Returns a new NSData fro the specified location coordinate.
 static inline NSData * dataForLocationCoordinate(CLLocationCoordinate2D locationCoordinate)
 {
@@ -39,11 +43,7 @@ static inline NSData * dataForLocationCoordinate(CLLocationCoordinate2D location
     [data appendBytes:&locationCoordinate.longitude
                length:sizeof(locationCoordinate.longitude)];
     return data;
-
 }
-
-// The maximum status length is 140 charactyers * 4 bytes (the maximum UTF-8 bytes per character).
-const NSUInteger kMaxStatusDataLength = 140 * 4;
 
 // WHPErrorCode enumeration.
 typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
@@ -105,6 +105,45 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 
 @end
 
+// TSNCharacteristicUpdateDescriptor interface.
+@interface TSNCharacteristicUpdateDescriptor : NSObject
+
+// Properties.
+@property (nonatomic, readonly) NSData * value;
+@property (nonatomic, readonly) CBMutableCharacteristic * characteristic;
+
+// Class initializer.
+- (instancetype)initWithValue:(NSData *)value
+               characteristic:(CBMutableCharacteristic *)characteristic;
+
+@end
+
+// TSNCharacteristicUpdateDescriptor implementation.
+@implementation TSNCharacteristicUpdateDescriptor
+
+// Class initializer.
+- (instancetype)initWithValue:(NSData *)value
+               characteristic:(CBMutableCharacteristic *)characteristic
+{
+    // Initialize superclass.
+    self = [super init];
+    
+    // Handle errors.
+    if (!self)
+    {
+        return nil;
+    }
+    
+    // Initialize.
+    _value = value;
+    _characteristic = characteristic;
+    
+    // Done.
+    return self;
+}
+
+@end
+
 // TSNPeerBluetooth (CBPeripheralManagerDelegate) interface.
 @interface TSNPeerBluetooth (CBPeripheralManagerDelegate) <CBPeripheralManagerDelegate>
 @end
@@ -132,17 +171,16 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 // Stops scanning.
 - (void)stopScanning;
 
-// Updates the peer name characteristic.
-- (void)updatePeerNameCharacteristic;
-
 // Updates the peer location characteristic.
-- (void)updatePeerLocationCharacteristic:(CLLocation *)location;
+- (void)updatePeerLocationCharacteristic:(CLLocation *)peerLocation;
 
 // Updates the peer status characteristic.
-- (BOOL)updatePeerStatusCharacteristic:(NSString *)status;
+- (BOOL)updatePeerStatusCharacteristic:(NSString *)peerStatus;
 
-// Gets the peer location data.
-- (NSData *)peerLocationData;
+// Updates the value of a characteristic. Automatically handles the case when the transmit queue
+// is full by enqueuing a characteristic update for later transmission.
+- (void)updateValue:(NSData *)value
+  forCharacteristic:(CBMutableCharacteristic *)characteristic;
 
 @end
 
@@ -159,12 +197,6 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The canonical peer name.
     NSData * _canonicalPeerName;
     
-    // The enabled flag.
-    BOOL _enabled;
-    
-    // The scanning flag.
-    BOOL _scanning;
-
     // The service type.
     CBUUID * _serviceType;
     
@@ -258,31 +290,41 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The central manager.
     CBCentralManager * _centralManager;
     
-    // Mutex used to synchronize accesss to peers.
+    // Mutex used to synchronize accesss to the things below.
     pthread_mutex_t _mutex;
     
-    // The location coordinate.
-    CLLocationCoordinate2D _locationCoordinate;
+    // The enabled flag.
+    BOOL _enabled;
     
-    // The status 1 data.
-    NSData * _status1Data;
+    // The scanning flag.
+    BOOL _scanning;
 
-    // The status 2 data.
-    NSData * _status2Data;
+    // The location coordinate.
+    CLLocationCoordinate2D _peerLocationCoordinate;
+    
+    // The peer status index. This is the index (0-4) of the current peer status.
+    NSUInteger _peerStatusIndex;
 
-    // The status 3 data.
-    NSData * _status3Data;
+    // The peer status 1 data.
+    NSData * _peerStatus1Data;
 
-    // The status 4 data.
-    NSData * _status4Data;
+    // The peer status 2 data.
+    NSData * _peerStatus2Data;
 
-    // The status 5 data.
-    NSData * _status5Data;
+    // The peer status 3 data.
+    NSData * _peerStatus3Data;
+
+    // The peer status 4 data.
+    NSData * _peerStatus4Data;
+
+    // The peer status 5 data.
+    NSData * _peerStatus5Data;
 
     // The peers dictionary.
     NSMutableDictionary * _peers;
-
-    NSUInteger _statusIndex;
+    
+    // The pending characteristic updates array.
+    NSMutableArray * _pendingCharacteristicUpdates;
 }
 
 // Class initializer.
@@ -299,6 +341,12 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
         return nil;
     }
     
+    // If the peer name is too long, truncate it.
+    if ([peerName length] > 100)
+    {
+        [peerName substringWithRange:NSMakeRange(0, 100)];
+    }
+
     // Initialize.
     _serviceType = [CBUUID UUIDWithNSUUID:serviceType];
     _peerIdentifier = peerIdentifier;
@@ -469,6 +517,11 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // every peer we are either connecting or connected to.
     _peers = [[NSMutableDictionary alloc] init];
     
+    // Allocate and initialize the pending updates array. It contains a TSNCharacteristicUpdateDescriptor
+    // for each characteristic update that is pending after a failed call to CBPeripheralManager
+    // updateValue:forCharacteristic:onSubscribedCentrals.
+    _pendingCharacteristicUpdates = [[NSMutableArray alloc] init];
+    
     // Done.
     return self;
 }
@@ -476,23 +529,37 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 // Starts peer Bluetooth.
 - (void)start
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+    
+    // Start, if we should.
     if (!_enabled)
     {
         _enabled = YES;
         [self startAdvertising];
         [self startScanning];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Stops peer Bluetooth.
 - (void)stop
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
+    // Stop, if we should.
     if (_enabled)
     {
         _enabled = NO;
         [self stopAdvertising];
         [self stopScanning];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Updates the location.
@@ -543,6 +610,7 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
     didReceiveReadRequest:(CBATTRequest *)request
 {
+    // Peer location characteristic.
     if ([[[request characteristic] UUID] isEqual:_peerLocationType])
     {
         if ([request offset] > 0)
@@ -553,95 +621,114 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
         else
         {
             pthread_mutex_lock(&_mutex);
-            CLLocationCoordinate2D locationCoordinate = _locationCoordinate;
+            CLLocationCoordinate2D locationCoordinate = _peerLocationCoordinate;
             pthread_mutex_unlock(&_mutex);
             [request setValue:dataForLocationCoordinate(locationCoordinate)];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
+    // Peer status 1 characteristic.
     else if ([[[request characteristic] UUID] isEqual:_peerStatus1Type])
     {
-        if ([request offset] >= [_status1Data length])
+        if ([request offset] >= [_peerStatus1Data length])
         {
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorInvalidOffset];
         }
         else
         {
-            [request setValue:[_status1Data subdataWithRange:NSMakeRange([request offset], [_status1Data length] - [request offset])]];
+            [request setValue:[_peerStatus1Data subdataWithRange:NSMakeRange([request offset], [_peerStatus1Data length] - [request offset])]];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
+    // Peer status 2 characteristic.
     else if ([[[request characteristic] UUID] isEqual:_peerStatus2Type])
     {
-        if ([request offset] >= [_status2Data length])
+        if ([request offset] >= [_peerStatus2Data length])
         {
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorInvalidOffset];
         }
         else
         {
-            [request setValue:[_status2Data subdataWithRange:NSMakeRange([request offset], [_status2Data length] - [request offset])]];
+            [request setValue:[_peerStatus2Data subdataWithRange:NSMakeRange([request offset], [_peerStatus2Data length] - [request offset])]];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
+    // Peer status 3 characteristic.
     else if ([[[request characteristic] UUID] isEqual:_peerStatus3Type])
     {
-        if ([request offset] >= [_status3Data length])
+        if ([request offset] >= [_peerStatus3Data length])
         {
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorInvalidOffset];
         }
         else
         {
-            [request setValue:[_status3Data subdataWithRange:NSMakeRange([request offset], [_status3Data length] - [request offset])]];
+            [request setValue:[_peerStatus3Data subdataWithRange:NSMakeRange([request offset], [_peerStatus3Data length] - [request offset])]];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
+    // Peer status 4 characteristic.
     else if ([[[request characteristic] UUID] isEqual:_peerStatus4Type])
     {
-        if ([request offset] >= [_status4Data length])
+        if ([request offset] >= [_peerStatus4Data length])
         {
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorInvalidOffset];
         }
         else
         {
-            [request setValue:[_status4Data subdataWithRange:NSMakeRange([request offset], [_status4Data length] - [request offset])]];
+            [request setValue:[_peerStatus4Data subdataWithRange:NSMakeRange([request offset], [_peerStatus4Data length] - [request offset])]];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
+    // Peer status 5 characteristic.
     else if ([[[request characteristic] UUID] isEqual:_peerStatus5Type])
     {
-        if ([request offset] >= [_status5Data length])
+        if ([request offset] >= [_peerStatus5Data length])
         {
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorInvalidOffset];
         }
         else
         {
-            [request setValue:[_status5Data subdataWithRange:NSMakeRange([request offset], [_status5Data length] - [request offset])]];
+            [request setValue:[_peerStatus5Data subdataWithRange:NSMakeRange([request offset], [_peerStatus5Data length] - [request offset])]];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
         }
     }
-}
-
-// Invoked after characteristic is subscribed to.
-- (void)peripheralManager:(CBPeripheralManager *)peripheralManager
-                  central:(CBCentral *)central
-didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
-{
 }
 
 // Invoked after a failed call to update a characteristic.
 - (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheralManager
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
+    // Process as many pending characteristic updates as we can.
+    while ([_pendingCharacteristicUpdates count])
+    {
+        // Process the next pending characteristic update. If the trasnmission queue is full, stop processing.
+        TSNCharacteristicUpdateDescriptor * characteristicUpdateDescriptor = _pendingCharacteristicUpdates[0];
+        if (![_peripheralManager updateValue:[characteristicUpdateDescriptor value]
+                           forCharacteristic:[characteristicUpdateDescriptor characteristic]
+                        onSubscribedCentrals:nil])
+        {
+            break;
+        }
+        
+        // Remove the pending characteristic update we processed.
+        [_pendingCharacteristicUpdates removeObjectAtIndex:0];
+    }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 @end
@@ -652,6 +739,9 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 // Invoked whenever the central manager's state has been updated.
 - (void)centralManagerDidUpdateState:(CBCentralManager *)centralManager
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // If the central manager is powered on, make sure we're scanning. If it's in any other state,
     // make sure we're not scanning.
     if ([_centralManager state] == CBCentralManagerStatePoweredOn)
@@ -662,6 +752,9 @@ didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
     {
         [self stopScanning];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked when a peripheral is discovered.
@@ -736,6 +829,13 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     TSNPeerDescriptor * peerDescriptor = [_peers objectForKey:peripheralIdentifierString];
     if (peerDescriptor)
     {
+        // Clear the peer status characteristics.
+        [peerDescriptor setCharacteristicPeerStatus1:nil];
+        [peerDescriptor setCharacteristicPeerStatus2:nil];
+        [peerDescriptor setCharacteristicPeerStatus3:nil];
+        [peerDescriptor setCharacteristicPeerStatus4:nil];
+        [peerDescriptor setCharacteristicPeerStatus5:nil];
+
         // Notify the delegate.
         if ([peerDescriptor peerName])
         {
@@ -746,8 +846,8 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
             }
         }
         
-        // Immediately reconnect. This is long-lived meaning that we will connect to this peer whenever it is
-        // encountered again.
+        // Immediately reconnect. This is long-lived. Central manager will connect to this peer whenever it is
+        // discovered again.
         [peerDescriptor setState:TSNPeerDescriptorStateConnecting];
         [_centralManager connectPeripheral:peripheral
                                    options:nil];
@@ -802,59 +902,71 @@ didDiscoverCharacteristicsForService:(CBService *)service
         return;
     }
     
-    [peerDescriptor setCharacteristicPeerStatus1:nil];
-    [peerDescriptor setCharacteristicPeerStatus2:nil];
-    [peerDescriptor setCharacteristicPeerStatus3:nil];
-    [peerDescriptor setCharacteristicPeerStatus4:nil];
-    [peerDescriptor setCharacteristicPeerStatus5:nil];
-
     // If this is our service, process its discovered characteristics.
     if ([[service UUID] isEqual:_serviceType])
     {
         // Process each of the discovered characteristics.
         for (CBCharacteristic * characteristic in [service characteristics])
         {
+            // Peer ID characteristic.
             if ([[characteristic UUID] isEqual:_peerIDType])
             {
+                // Read it.
                 [peripheral readValueForCharacteristic:characteristic];
             }
+            // Peer name characteristic.
             else if ([[characteristic UUID] isEqual:_peerNameType])
             {
+                // Read it.
                 [peripheral readValueForCharacteristic:characteristic];
             }
+            // Peer location characteristic.
             else if ([[characteristic UUID] isEqual:_peerLocationType])
             {
+                // Read it and subscribe to it.
                 [peripheral readValueForCharacteristic:characteristic];
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
             }
+            // Peer status 1-5 updated at characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType] ||
                      [[characteristic UUID] isEqual:_peerStatus2UpdatedAtType] ||
                      [[characteristic UUID] isEqual:_peerStatus3UpdatedAtType] ||
                      [[characteristic UUID] isEqual:_peerStatus4UpdatedAtType] ||
                      [[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
             {
+                // Subscribe to it.
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
             }
+            // Peer status 1 characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus1Type])
             {
+                // Remember it so we can read it.
                 [peerDescriptor setCharacteristicPeerStatus1:characteristic];
             }
+            // Peer status 2 characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus2Type])
             {
+                // Remember it so we can read it.
                 [peerDescriptor setCharacteristicPeerStatus2:characteristic];
             }
+            // Peer status 3 characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus3Type])
             {
+                // Remember it so we can read it.
                 [peerDescriptor setCharacteristicPeerStatus3:characteristic];
             }
+            // Peer status 4 characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus4Type])
             {
+                // Remember it so we can read it.
                 [peerDescriptor setCharacteristicPeerStatus4:characteristic];
             }
+            // Peer status 5 characteristics.
             else if ([[characteristic UUID] isEqual:_peerStatus5Type])
             {
+                // Remember it so we can read it.
                 [peerDescriptor setCharacteristicPeerStatus5:characteristic];
             }
         }
@@ -916,31 +1028,31 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     // Peer status 1 updated at characteristic.
     else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType])
     {
-        // Our signal to read the peer status 1 characteristic.
+        // Read the peer status 1 characteristic.
         [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus1]];
     }
     // Peer status 2 updated at characteristic.
     else if ([[characteristic UUID] isEqual:_peerStatus2UpdatedAtType])
     {
-        // Our signal to read the peer status 2 characteristic.
+        // Read the peer status 2 characteristic.
         [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus2]];
     }
     // Peer status 3 updated at characteristic.
     else if ([[characteristic UUID] isEqual:_peerStatus3UpdatedAtType])
     {
-        // Our signal to read the peer status 3 characteristic.
+        // Read the peer status 3 characteristic.
         [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus3]];
     }
     // Peer status 4 updated at characteristic.
     else if ([[characteristic UUID] isEqual:_peerStatus4UpdatedAtType])
     {
-        // Our signal to read the peer status 4 characteristic.
+        // Read the peer status 4 characteristic.
         [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus4]];
     }
     // Peer status 5 updated at characteristic.
     else if ([[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
     {
-        // Our signal to read the peer status 5 characteristic.
+        // Read the peer status 5 characteristic.
         [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus5]];
     }
     // Peer status 1-5 characteristic.
@@ -950,6 +1062,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
              [[characteristic UUID] isEqual:_peerStatus4Type] ||
              [[characteristic UUID] isEqual:_peerStatus5Type])
     {
+        // If there was a value, process it.
         if ([[characteristic value] length])
         {
             // If the peer is fully initialized (it's in the connected state), notify the delegate.
@@ -1031,13 +1144,13 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 }
 
 // Updates the peer location characteristic.
-- (void)updatePeerLocationCharacteristic:(CLLocation *)location
+- (void)updatePeerLocationCharacteristic:(CLLocation *)peerLocation
 {
     // Lock.
     pthread_mutex_lock(&_mutex);
 
-    // Set the location coordinate.
-    _locationCoordinate = [location coordinate];
+    // Set the peer location coordinate.
+    _peerLocationCoordinate = [peerLocation coordinate];
     
     // Unlock.
     pthread_mutex_unlock(&_mutex);
@@ -1045,17 +1158,16 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     // Update the characteristic value.
     if (_enabled)
     {
-        [_peripheralManager updateValue:dataForLocationCoordinate([location coordinate])
-                      forCharacteristic:_characteristicPeerLocation
-                   onSubscribedCentrals:nil];
+        [self updateValue:dataForLocationCoordinate([peerLocation coordinate])
+        forCharacteristic:_characteristicPeerLocation];
     }
 }
 
 // Updates the peer status characteristic.
-- (BOOL)updatePeerStatusCharacteristic:(NSString *)status
+- (BOOL)updatePeerStatusCharacteristic:(NSString *)peerStatus
 {
-    // Get the status data. If it's too long
-    NSData * statusData = [status dataUsingEncoding:NSUTF8StringEncoding];
+    // Get the status data. If it's too long, return NO.
+    NSData * statusData = [peerStatus dataUsingEncoding:NSUTF8StringEncoding];
     if ([statusData length] > kMaxStatusDataLength)
     {
         return NO;
@@ -1063,39 +1175,42 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     
     // Lock.
     pthread_mutex_lock(&_mutex);
-    
-    CBCharacteristic * characteristic;
-    switch (_statusIndex)
+
+    // Peer status 1-5 are updated in a round-robin pattern which prevents a fast sender
+    // from overwriting a status that is still being read.
+    CBMutableCharacteristic * characteristicPeerStatus;
+    switch (_peerStatusIndex)
     {
         case 0:
-            characteristic = _characteristicPeerStatus1UpdatedAt;
-            _status1Data = statusData;
-            _statusIndex++;
+            characteristicPeerStatus = _characteristicPeerStatus1UpdatedAt;
+            _peerStatus1Data = statusData;
             break;
             
         case 1:
-            characteristic = _characteristicPeerStatus2UpdatedAt;
-            _status2Data = statusData;
-            _statusIndex++;
+            characteristicPeerStatus = _characteristicPeerStatus2UpdatedAt;
+            _peerStatus2Data = statusData;
             break;
             
         case 2:
-            characteristic = _characteristicPeerStatus3UpdatedAt;
-            _status3Data = statusData;
-            _statusIndex++;
+            characteristicPeerStatus = _characteristicPeerStatus3UpdatedAt;
+            _peerStatus3Data = statusData;
             break;
             
         case 3:
-            characteristic = _characteristicPeerStatus4UpdatedAt;
-            _status4Data = statusData;
-            _statusIndex++;
+            characteristicPeerStatus = _characteristicPeerStatus4UpdatedAt;
+            _peerStatus4Data = statusData;
             break;
             
         case 4:
-            characteristic = _characteristicPeerStatus5UpdatedAt;
-            _status5Data = statusData;
-            _statusIndex = 0;
+            characteristicPeerStatus = _characteristicPeerStatus5UpdatedAt;
+            _peerStatus5Data = statusData;
             break;
+    }
+    
+    // Increment the peer status index. Loop around to 0 when we reach the end.
+    if (++_peerStatusIndex == 5)
+    {
+        _peerStatusIndex = 0;
     }
     
     // Unlock.
@@ -1104,36 +1219,41 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     // If we're enabled, update the peer status characteristic value.
     if (_enabled)
     {
-        NSDate * now = [[NSDate alloc] init];
-        NSTimeInterval timeInterval = [now timeIntervalSince1970];
-        NSData * data = [NSData dataWithBytes:&timeInterval
-                                       length:sizeof(timeInterval)];
+        // Get the current time interval as an NSData.
+        NSTimeInterval timeInterval = [[[NSDate alloc] init] timeIntervalSince1970];
+        NSData * value = [NSData dataWithBytes:&timeInterval
+                                        length:sizeof(timeInterval)];
         
-        // TODO deal with failure.
-        BOOL result = [_peripheralManager updateValue:data
-                                    forCharacteristic:characteristic
-                                 onSubscribedCentrals:nil];
+        // Update the value for the characteristic.
+        [self updateValue:value
+        forCharacteristic:characteristicPeerStatus];
     }
 
     // Success.
     return YES;
 }
 
-// Gets the peer location data.
-- (NSData *)peerLocationData
+// Updates the value of a characteristic. Automatically handles the case when the transmit queue
+// is full by enqueuing a characteristic update for later transmission.
+- (void)updateValue:(NSData *)value
+  forCharacteristic:(CBMutableCharacteristic *)characteristic
 {
-    // Obtain the last location coordinate.
-    pthread_mutex_lock(&_mutex);
-    CLLocationCoordinate2D locationCoordinate = _locationCoordinate;
-    pthread_mutex_unlock(&_mutex);
-    
-    // Construct and return an NSData with the location.
-    NSMutableData * data = [[NSMutableData alloc] initWithCapacity:sizeof(CLLocationDegrees) * 2];
-    [data appendBytes:&locationCoordinate.latitude
-               length:sizeof(locationCoordinate.latitude)];
-    [data appendBytes:&locationCoordinate.longitude
-               length:sizeof(locationCoordinate.longitude)];
-    return data;
+    // Update the characteristic value. If this fails, enqueuing a characteristic update for later transmission.
+    if (![_peripheralManager updateValue:value
+                       forCharacteristic:characteristic
+                    onSubscribedCentrals:nil])
+    {
+        // Lock.
+        pthread_mutex_lock(&_mutex);
+        
+        // Enqueue characteristic update descriptor for the failed update. It will be updated when peripheralManagerIsReadyToUpdateSubscribers:
+        // is called back.
+        [_pendingCharacteristicUpdates addObject:[[TSNCharacteristicUpdateDescriptor alloc] initWithValue:value
+                                                                                           characteristic:characteristic]];
+        
+        // Unlock.
+        pthread_mutex_unlock(&_mutex);
+    }
 }
 
 @end

@@ -82,10 +82,11 @@ static NSDateFormatter * sDateFormatter;
     [self setBackgroundColor:[UIColor clearColor]];
     [self setAutoresizesSubviews:YES];
     
+    
     // Allocate, initialize, and add the container view.
     _viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 4.0, 0.0, 0.0)];
     [_viewContainer setOpaque:YES];
-    [_viewContainer setBackgroundColor:[UIColor colorWithRGB:0x16a085]];
+    [_viewContainer setBackgroundColor:[UIColor colorWithRGB:0x329ef7]];
     [[_viewContainer layer] setCornerRadius:8.0];
     [_viewContainer setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [self addSubview:_viewContainer];
@@ -95,7 +96,7 @@ static NSDateFormatter * sDateFormatter;
     [_labelDateTime setOpaque:NO];
     [_labelDateTime setClipsToBounds:YES];
     [_labelDateTime setBackgroundColor:[UIColor clearColor]];
-    [_labelDateTime setTextColor:[UIColor colorWithRGB:0xecf0f1]];
+    [_labelDateTime setTextColor:[UIColor whiteColor]];
     [_labelDateTime setText:[sDateFormatter stringFromDate:[[NSDate alloc] init]]];
     [_labelDateTime setFont:[UIFont systemFontOfSize:10.0]];
     [_labelDateTime sizeToFit];
@@ -105,7 +106,7 @@ static NSDateFormatter * sDateFormatter;
     CGFloat maxWidth = [_labelDateTime width];
     
     // Allocate, initialize, and add the name label.
-    _labelName = [[UILabel alloc] initWithFrame:CGRectMake(0.0, [_labelDateTime bottom] + 3.0, 0.0, 0.0)];
+    _labelName = [[UILabel alloc] initWithFrame:CGRectMake(0.0, [_labelDateTime bottom] + 3.0,  0.0, 0.0)];
     [_labelName setOpaque:NO];
     [_labelName setClipsToBounds:YES];
     [_labelName setBackgroundColor:[UIColor clearColor]];
@@ -125,12 +126,24 @@ static NSDateFormatter * sDateFormatter;
     [_labelMessage setClipsToBounds:YES];
     [_labelMessage setBackgroundColor:[UIColor clearColor]];
     [_labelMessage setTextColor:[UIColor whiteColor]];
-    [_labelMessage setLineBreakMode:NSLineBreakByTruncatingTail];
-    [_labelMessage setText:message];
-    [_labelMessage setFont:[UIFont systemFontOfSize:14.0]];
-    [_labelMessage sizeToFit];
+    [_labelMessage setLineBreakMode:NSLineBreakByWordWrapping];
+    [_labelMessage setNumberOfLines:0];
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    UIFont * font = [UIFont systemFontOfSize:14.0];
+    NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:message
+                                                                                          attributes:@{NSFontAttributeName:             font,
+                                                                                                       NSForegroundColorAttributeName:  [UIColor whiteColor],
+                                                                                                       NSParagraphStyleAttributeName:   paragraphStyle}];
+    CGSize size = [attributedString boundingRectWithSize:CGSizeMake(screenWidth - 40.0, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                 context:nil].size;
+    [_labelMessage setWidth:size.width
+                     height:size.height];
+    [_labelMessage setAttributedText:attributedString];
     [_viewContainer addSubview:_labelMessage];
-    
+
     // Set the max width.
     maxWidth = MAX(maxWidth, [_labelMessage width]);
     

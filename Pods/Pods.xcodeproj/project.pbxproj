@@ -7,336 +7,336 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		034F5315197D37EB186F6927 /* TSNPeerBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 26B7C56184E0F0C8648355CC /* TSNPeerBluetooth.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		0D2A924C4746CC97D32CED04 /* UIView+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3B23D534FEBEFF018CDF695 /* UIView+Extensions.h */; };
-		32877D2871484C6246AFCDF4 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EEC10096AE3AE22EBFD66D /* UIColor+Extensions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		3457C2F28E767E2E3745739D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */; };
-		44780CA6A71C11A22B6822E0 /* Pods-TSNExtensions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3178031BD9FE8997493EE6 /* Pods-TSNExtensions-dummy.m */; };
-		632EF9302ADE781A24E666CA /* Pods-TSNPeerBluetooth-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 593EC3B1AE3BC7CB2C821891 /* Pods-TSNPeerBluetooth-dummy.m */; };
-		706F9785F159AC969165158B /* TSNThreading.h in Headers */ = {isa = PBXBuildFile; fileRef = 919B7AC9115BE25A141DE762 /* TSNThreading.h */; };
-		777F536CD78CEFA628ED085F /* TSNAtomicFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = E9C302CF2E05216848781B3D /* TSNAtomicFlag.h */; };
-		7BFBF995793633BAD9B13C98 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A830BC0D74F10FD7D6785325 /* CoreBluetooth.framework */; };
-		8E01551BDF71BDCAF1A933EC /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 245A71B617D45C8CBD9F832E /* UIView+Extensions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		904B2FD12D678BACF1CE8FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */; };
-		AEB4699EDA403808E81D19C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6ECD0B1B8E6EC70272B50B1 /* UIKit.framework */; };
-		B1822A11BE4A8E9A169A9A94 /* Pods-TSNAtomicFlag-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EAC890F5AB0F43CB9377C22 /* Pods-TSNAtomicFlag-dummy.m */; };
-		BA976DAFC357CE1E7689D9A9 /* TSNPeerBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EB878BB16398672FDEDA71F /* TSNPeerBluetooth.h */; };
-		CBE1BFCF9DD2D8EFC11128EB /* TSNPeerBluetoothDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F789F9ECB584BCAF768A303 /* TSNPeerBluetoothDelegate.h */; };
-		CBE2681CE7C280D288738726 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */; };
-		DEB717EF0C30A0A8F9FD7711 /* UIColor+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E9887B9E474365D27C6CA2B7 /* UIColor+Extensions.h */; };
-		ED8E8B67FE36174C2EC3824C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0E8AA2E3FA61A708AD9A21 /* CoreLocation.framework */; };
-		EF4B97A76420115C32C79B92 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A83B1ED55086E234DB56E69 /* Pods-dummy.m */; };
-		F18BA76EC0D8E2C77EE863F6 /* TSNAtomicFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = BA015D4DBB60198D0564BB81 /* TSNAtomicFlag.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
-		FA09F0B3C314E2B559F7D7E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */; };
+		16DEF961015270C092B07434 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88A1449B595B4B132ABAA9E /* UIKit.framework */; };
+		23C5E6A1D725E2D62FBAC0E5 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA918BDFCD240914FA8C240 /* Pods-dummy.m */; };
+		25AC5E86B33A9DB5E35D5742 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9600E88BEF2871BF5DF5F3 /* UIColor+Extensions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
+		3924659C5B80C7DFC2149B8C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C8B62314B0BFF042FCAB2B /* CoreBluetooth.framework */; };
+		3B6BCA5D927C3D0C381F08D0 /* UIColor+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = EE2068B90C99F4B85C700ED3 /* UIColor+Extensions.h */; };
+		3EF658E8F3425CA0F6F3D874 /* TSNAtomicFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D53D6224998B137A467BA16 /* TSNAtomicFlag.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
+		4CDED2275F166FB8BD65A034 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9B02C9FFDD5E0C3D2D377D /* CoreLocation.framework */; };
+		558C5C4502DA50EA581DB4DF /* Pods-TSNPeerBluetooth-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 359C73BB798E7773E1C05A6E /* Pods-TSNPeerBluetooth-dummy.m */; };
+		5825334E6E987474EDA67BA3 /* TSNThreading.h in Headers */ = {isa = PBXBuildFile; fileRef = 14BDE4A4F52FCE37073BF592 /* TSNThreading.h */; };
+		5F8BAA6B2412C4BB72CF89C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C709EA6D3E77FB27757E89A5 /* Foundation.framework */; };
+		6E25070CB4E583A13454B4F4 /* Pods-TSNAtomicFlag-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 884C0519B1402046B915C19F /* Pods-TSNAtomicFlag-dummy.m */; };
+		71C65E0F07AC7BBC3FA6B9E4 /* Pods-TSNExtensions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D177DDB47A30D56CD53D0 /* Pods-TSNExtensions-dummy.m */; };
+		79FCC4F90C3981A77EC70F01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C709EA6D3E77FB27757E89A5 /* Foundation.framework */; };
+		7F0E8D882431635EA6906CAA /* TSNAtomicFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = D01194919A6794C5C939252D /* TSNAtomicFlag.h */; };
+		84DDD2939985393B7064A5B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C709EA6D3E77FB27757E89A5 /* Foundation.framework */; };
+		91DCA123FFFB1C01B4FEA0A9 /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44B4E7A2D2C447E366671D76 /* UIView+Extensions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
+		A2A808B12681DFC60EEB74E9 /* TSNPeerBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB8D1E06A15E342923E0382 /* TSNPeerBluetooth.h */; };
+		B8A9269E0FA93482FF43CE2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C709EA6D3E77FB27757E89A5 /* Foundation.framework */; };
+		E18DCAFBE15A5D6E33BDE64C /* TSNPeerBluetoothDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 51EAC14546B8551DD7DA36FA /* TSNPeerBluetoothDelegate.h */; };
+		E93486542850FDAEA7D6BF1D /* UIView+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AED13314F867A7A6963A063D /* UIView+Extensions.h */; };
+		F5DEC987390CA06577C8D525 /* TSNPeerBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = B7892F273009DA3DBBAFA37F /* TSNPeerBluetooth.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-checker -Xanalyzer deadcode"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		000F5661AA0773D56CDB3E18 /* PBXContainerItemProxy */ = {
+		0B1FA45F5F7BA140BAED2B35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7C5D10B0C66D3159741C67B /* Project object */;
+			containerPortal = 1F81D50126610017E7B220EF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E95D5E65905C29DC38257D78;
-			remoteInfo = "Pods-TSNExtensions";
+			remoteGlobalIDString = 7D3D94A36DDE19A76D5C0824;
+			remoteInfo = "Pods-TSNAtomicFlag";
 		};
-		7C3D02B66A8BCC7DA4295F91 /* PBXContainerItemProxy */ = {
+		4253CEBD71DC74AD1ED3C5EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7C5D10B0C66D3159741C67B /* Project object */;
+			containerPortal = 1F81D50126610017E7B220EF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4C2F9EDABBB7D24265ECB5A8;
+			remoteGlobalIDString = 7A43955F06EC3AE92DD351D8;
 			remoteInfo = "Pods-TSNPeerBluetooth";
 		};
-		B1280811DB6CEC966100BF5A /* PBXContainerItemProxy */ = {
+		537976C87A468AFEB46597A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7C5D10B0C66D3159741C67B /* Project object */;
+			containerPortal = 1F81D50126610017E7B220EF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 906C574C957F25692E7A7927;
-			remoteInfo = "Pods-TSNAtomicFlag";
+			remoteGlobalIDString = BDCEA560DC84033BAC341122;
+			remoteInfo = "Pods-TSNExtensions";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EEF12C1E611E3E374F40EB9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		0F789F9ECB584BCAF768A303 /* TSNPeerBluetoothDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetoothDelegate.h; path = Source/TSNPeerBluetoothDelegate.h; sourceTree = "<group>"; };
-		1464E8C084B935F6A3BF2C2B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		245A71B617D45C8CBD9F832E /* UIView+Extensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+Extensions.m"; path = "Source/UIView+Extensions.m"; sourceTree = "<group>"; };
-		26B7C56184E0F0C8648355CC /* TSNPeerBluetooth.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TSNPeerBluetooth.m; path = Source/TSNPeerBluetooth.m; sourceTree = "<group>"; };
-		29A8B201CE223C55A5FC75BB /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		2D2498400415880696B4198C /* Pods-TSNAtomicFlag-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNAtomicFlag-prefix.pch"; sourceTree = "<group>"; };
-		2EB878BB16398672FDEDA71F /* TSNPeerBluetooth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetooth.h; path = Source/TSNPeerBluetooth.h; sourceTree = "<group>"; };
-		3B7FC782D67B8CE1C9CDFAED /* libPods-TSNPeerBluetooth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNPeerBluetooth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		432CDA1363E3BEAFBEFD0E11 /* Pods-TSNExtensions.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNExtensions.xcconfig"; sourceTree = "<group>"; };
-		43F4BC4906ACF5F5535657FD /* libPods-TSNExtensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNExtensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C65FA70BA2DC42AFDFAC618 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		593EC3B1AE3BC7CB2C821891 /* Pods-TSNPeerBluetooth-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNPeerBluetooth-dummy.m"; sourceTree = "<group>"; };
-		65A44DF9D35AB3A19D4BA7E1 /* Pods-TSNAtomicFlag-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNAtomicFlag-Private.xcconfig"; sourceTree = "<group>"; };
-		6DD42EB7E054F1B363442DE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DF30D35A42659CCEFA89971 /* libPods-TSNAtomicFlag.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNAtomicFlag.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F7513E26F905080B2022B2F /* Pods-TSNPeerBluetooth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNPeerBluetooth.xcconfig"; sourceTree = "<group>"; };
-		7EAC890F5AB0F43CB9377C22 /* Pods-TSNAtomicFlag-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNAtomicFlag-dummy.m"; sourceTree = "<group>"; };
-		919B7AC9115BE25A141DE762 /* TSNThreading.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNThreading.h; path = Source/TSNThreading.h; sourceTree = "<group>"; };
-		97EEC10096AE3AE22EBFD66D /* UIColor+Extensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Extensions.m"; path = "Source/UIColor+Extensions.m"; sourceTree = "<group>"; };
-		9A83B1ED55086E234DB56E69 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		9F0E8AA2E3FA61A708AD9A21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
-		A830BC0D74F10FD7D6785325 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
-		BA015D4DBB60198D0564BB81 /* TSNAtomicFlag.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TSNAtomicFlag.m; path = Source/TSNAtomicFlag.m; sourceTree = "<group>"; };
-		BAC40713BA493623CD1C620E /* Pods-TSNPeerBluetooth-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNPeerBluetooth-Private.xcconfig"; sourceTree = "<group>"; };
-		C01846E10A0CEFF1AE0E8649 /* Pods-TSNExtensions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNExtensions-prefix.pch"; sourceTree = "<group>"; };
-		C6ECD0B1B8E6EC70272B50B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		CC4ED2BBC6B10745FAE7AF2B /* Pods-TSNExtensions-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNExtensions-Private.xcconfig"; sourceTree = "<group>"; };
-		CFAD2963EC4F311180D66E38 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D08C90638B6AA2DEF2C71501 /* Pods-TSNPeerBluetooth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNPeerBluetooth-prefix.pch"; sourceTree = "<group>"; };
-		D3B23D534FEBEFF018CDF695 /* UIView+Extensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+Extensions.h"; path = "Source/UIView+Extensions.h"; sourceTree = "<group>"; };
-		E0992E13FE38AB7B707C79E9 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		E741EC76FDEBC0C9FFDA6496 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		E9887B9E474365D27C6CA2B7 /* UIColor+Extensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+Extensions.h"; path = "Source/UIColor+Extensions.h"; sourceTree = "<group>"; };
-		E9C302CF2E05216848781B3D /* TSNAtomicFlag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNAtomicFlag.h; path = Source/TSNAtomicFlag.h; sourceTree = "<group>"; };
-		EC3178031BD9FE8997493EE6 /* Pods-TSNExtensions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNExtensions-dummy.m"; sourceTree = "<group>"; };
-		FCBBC840ABF95E93B8098448 /* Pods-TSNAtomicFlag.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNAtomicFlag.xcconfig"; sourceTree = "<group>"; };
+		040E5714B931948E7D7EEFEE /* Pods-TSNPeerBluetooth-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNPeerBluetooth-Private.xcconfig"; sourceTree = "<group>"; };
+		0668BFCC8463B1CB09607EE1 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		08C8B62314B0BFF042FCAB2B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
+		14BDE4A4F52FCE37073BF592 /* TSNThreading.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNThreading.h; path = Source/TSNThreading.h; sourceTree = "<group>"; };
+		1D53D6224998B137A467BA16 /* TSNAtomicFlag.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TSNAtomicFlag.m; path = Source/TSNAtomicFlag.m; sourceTree = "<group>"; };
+		1DB76F9DDF67BF49896F891C /* Pods-TSNExtensions-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNExtensions-Private.xcconfig"; sourceTree = "<group>"; };
+		31B14F2B257CF903FAE5DEC7 /* Pods-TSNAtomicFlag-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNAtomicFlag-Private.xcconfig"; sourceTree = "<group>"; };
+		359C73BB798E7773E1C05A6E /* Pods-TSNPeerBluetooth-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNPeerBluetooth-dummy.m"; sourceTree = "<group>"; };
+		4266D39BFB5DB09E7D686B18 /* Pods-TSNAtomicFlag.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNAtomicFlag.xcconfig"; sourceTree = "<group>"; };
+		44B4E7A2D2C447E366671D76 /* UIView+Extensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+Extensions.m"; path = "Source/UIView+Extensions.m"; sourceTree = "<group>"; };
+		4B9B02C9FFDD5E0C3D2D377D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		51EAC14546B8551DD7DA36FA /* TSNPeerBluetoothDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetoothDelegate.h; path = Source/TSNPeerBluetoothDelegate.h; sourceTree = "<group>"; };
+		6559D5D2749A518D1312EE3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B829B958C20CDE893629CB4 /* libPods-TSNExtensions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNExtensions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7D177DDB47A30D56CD53D0 /* Pods-TSNExtensions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNExtensions-dummy.m"; sourceTree = "<group>"; };
+		7E2ED50A42A96462C6EC6DB6 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		83098003988CB6EFC1C19EEB /* libPods-TSNPeerBluetooth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNPeerBluetooth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83EC64640FCB774C2BA80155 /* Pods-TSNPeerBluetooth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNPeerBluetooth.xcconfig"; sourceTree = "<group>"; };
+		884C0519B1402046B915C19F /* Pods-TSNAtomicFlag-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TSNAtomicFlag-dummy.m"; sourceTree = "<group>"; };
+		8BA918BDFCD240914FA8C240 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		8F2F9A579866B1F9E4A78FC8 /* libPods-TSNAtomicFlag.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TSNAtomicFlag.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB8D1E06A15E342923E0382 /* TSNPeerBluetooth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetooth.h; path = Source/TSNPeerBluetooth.h; sourceTree = "<group>"; };
+		A1DC5D428FB84BA0D652F1E6 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A3DA8DC0F9BF80066CD19CA0 /* Pods-TSNExtensions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNExtensions-prefix.pch"; sourceTree = "<group>"; };
+		AED13314F867A7A6963A063D /* UIView+Extensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+Extensions.h"; path = "Source/UIView+Extensions.h"; sourceTree = "<group>"; };
+		B7892F273009DA3DBBAFA37F /* TSNPeerBluetooth.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TSNPeerBluetooth.m; path = Source/TSNPeerBluetooth.m; sourceTree = "<group>"; };
+		C709EA6D3E77FB27757E89A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		C88EFD3F420C4B5743FB2D0F /* Pods-TSNPeerBluetooth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNPeerBluetooth-prefix.pch"; sourceTree = "<group>"; };
+		CF9600E88BEF2871BF5DF5F3 /* UIColor+Extensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Extensions.m"; path = "Source/UIColor+Extensions.m"; sourceTree = "<group>"; };
+		CFE6287E5ACDB4C9AFF337FE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		D01194919A6794C5C939252D /* TSNAtomicFlag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TSNAtomicFlag.h; path = Source/TSNAtomicFlag.h; sourceTree = "<group>"; };
+		DDE37F9DCEEC0CD6173EF531 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		E88A1449B595B4B132ABAA9E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		EBC833F2FB43CA8A3A292A79 /* Pods-TSNAtomicFlag-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TSNAtomicFlag-prefix.pch"; sourceTree = "<group>"; };
+		EE2068B90C99F4B85C700ED3 /* UIColor+Extensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+Extensions.h"; path = "Source/UIColor+Extensions.h"; sourceTree = "<group>"; };
+		F086DDAA32BF58FDB49462F6 /* Pods-TSNExtensions.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TSNExtensions.xcconfig"; sourceTree = "<group>"; };
+		F837AB15FC521C600B62C35E /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		FFAE68C45B6E2FFEDA71FD01 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		209A7F4B29899518E22B8398 /* Frameworks */ = {
+		22CC727103F50F9607075B43 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA09F0B3C314E2B559F7D7E0 /* Foundation.framework in Frameworks */,
+				79FCC4F90C3981A77EC70F01 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6F80A97A3371C25A284174EA /* Frameworks */ = {
+		76616DC83B5161B8C6A6F955 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3457C2F28E767E2E3745739D /* Foundation.framework in Frameworks */,
+				3924659C5B80C7DFC2149B8C /* CoreBluetooth.framework in Frameworks */,
+				4CDED2275F166FB8BD65A034 /* CoreLocation.framework in Frameworks */,
+				84DDD2939985393B7064A5B9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		875CD31F1590144F97FFCAF4 /* Frameworks */ = {
+		7D147D6CD15D6ED9D0399B9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904B2FD12D678BACF1CE8FB3 /* Foundation.framework in Frameworks */,
-				AEB4699EDA403808E81D19C3 /* UIKit.framework in Frameworks */,
+				B8A9269E0FA93482FF43CE2B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B49CC5954D7BEA4746B0ABF1 /* Frameworks */ = {
+		F4BFDF33D7DD8416CBA06105 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BFBF995793633BAD9B13C98 /* CoreBluetooth.framework in Frameworks */,
-				ED8E8B67FE36174C2EC3824C /* CoreLocation.framework in Frameworks */,
-				CBE2681CE7C280D288738726 /* Foundation.framework in Frameworks */,
+				5F8BAA6B2412C4BB72CF89C5 /* Foundation.framework in Frameworks */,
+				16DEF961015270C092B07434 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1298B1F7B485C13A2B4E724C /* iOS */ = {
+		0377C0A222349EE103F646F2 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A830BC0D74F10FD7D6785325 /* CoreBluetooth.framework */,
-				9F0E8AA2E3FA61A708AD9A21 /* CoreLocation.framework */,
-				2A37C62DDEFDDB5ACEA06944 /* Foundation.framework */,
-				C6ECD0B1B8E6EC70272B50B1 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		175777FE0DC00FAF0D6761ED /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				FCBBC840ABF95E93B8098448 /* Pods-TSNAtomicFlag.xcconfig */,
-				65A44DF9D35AB3A19D4BA7E1 /* Pods-TSNAtomicFlag-Private.xcconfig */,
-				7EAC890F5AB0F43CB9377C22 /* Pods-TSNAtomicFlag-dummy.m */,
-				2D2498400415880696B4198C /* Pods-TSNAtomicFlag-prefix.pch */,
+				4266D39BFB5DB09E7D686B18 /* Pods-TSNAtomicFlag.xcconfig */,
+				31B14F2B257CF903FAE5DEC7 /* Pods-TSNAtomicFlag-Private.xcconfig */,
+				884C0519B1402046B915C19F /* Pods-TSNAtomicFlag-dummy.m */,
+				EBC833F2FB43CA8A3A292A79 /* Pods-TSNAtomicFlag-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-TSNAtomicFlag";
 			sourceTree = "<group>";
 		};
-		21E7C9F0AD32A53656595907 /* Support Files */ = {
+		0AA4F47B776539F1FBE20DEB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				432CDA1363E3BEAFBEFD0E11 /* Pods-TSNExtensions.xcconfig */,
-				CC4ED2BBC6B10745FAE7AF2B /* Pods-TSNExtensions-Private.xcconfig */,
-				EC3178031BD9FE8997493EE6 /* Pods-TSNExtensions-dummy.m */,
-				C01846E10A0CEFF1AE0E8649 /* Pods-TSNExtensions-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-TSNExtensions";
-			sourceTree = "<group>";
-		};
-		4D9A9DEF674CD53CB7F03A4B /* TSNPeerBluetooth */ = {
-			isa = PBXGroup;
-			children = (
-				2EB878BB16398672FDEDA71F /* TSNPeerBluetooth.h */,
-				26B7C56184E0F0C8648355CC /* TSNPeerBluetooth.m */,
-				0F789F9ECB584BCAF768A303 /* TSNPeerBluetoothDelegate.h */,
-				7F7CA9CEEB05CB51D0E10637 /* Support Files */,
-			);
-			path = TSNPeerBluetooth;
-			sourceTree = "<group>";
-		};
-		5090999150B9E70A143B829F /* TSNAtomicFlag */ = {
-			isa = PBXGroup;
-			children = (
-				E9C302CF2E05216848781B3D /* TSNAtomicFlag.h */,
-				BA015D4DBB60198D0564BB81 /* TSNAtomicFlag.m */,
-				175777FE0DC00FAF0D6761ED /* Support Files */,
-			);
-			path = TSNAtomicFlag;
-			sourceTree = "<group>";
-		};
-		54399A4ABCE2C9487BFAC1AD /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F61BF1D42CEE9FC1706AE44D /* Pods */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		6728BE0881D1F381DAABEDCD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5090999150B9E70A143B829F /* TSNAtomicFlag */,
-				BAE1A4048930B8CFE703966E /* TSNExtensions */,
-				4D9A9DEF674CD53CB7F03A4B /* TSNPeerBluetooth */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		7F7CA9CEEB05CB51D0E10637 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				6F7513E26F905080B2022B2F /* Pods-TSNPeerBluetooth.xcconfig */,
-				BAC40713BA493623CD1C620E /* Pods-TSNPeerBluetooth-Private.xcconfig */,
-				593EC3B1AE3BC7CB2C821891 /* Pods-TSNPeerBluetooth-dummy.m */,
-				D08C90638B6AA2DEF2C71501 /* Pods-TSNPeerBluetooth-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-TSNPeerBluetooth";
-			sourceTree = "<group>";
-		};
-		A973BED90FF1382169F3F0D1 = {
-			isa = PBXGroup;
-			children = (
-				CFAD2963EC4F311180D66E38 /* Podfile */,
-				D93B1DBEF9B26C8FC90D8394 /* Frameworks */,
-				6728BE0881D1F381DAABEDCD /* Pods */,
-				C4CA7093BE92441AB055AEBD /* Products */,
-				54399A4ABCE2C9487BFAC1AD /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		BAE1A4048930B8CFE703966E /* TSNExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				919B7AC9115BE25A141DE762 /* TSNThreading.h */,
-				E9887B9E474365D27C6CA2B7 /* UIColor+Extensions.h */,
-				97EEC10096AE3AE22EBFD66D /* UIColor+Extensions.m */,
-				D3B23D534FEBEFF018CDF695 /* UIView+Extensions.h */,
-				245A71B617D45C8CBD9F832E /* UIView+Extensions.m */,
-				21E7C9F0AD32A53656595907 /* Support Files */,
-			);
-			path = TSNExtensions;
-			sourceTree = "<group>";
-		};
-		C4CA7093BE92441AB055AEBD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6DD42EB7E054F1B363442DE3 /* libPods.a */,
-				6DF30D35A42659CCEFA89971 /* libPods-TSNAtomicFlag.a */,
-				43F4BC4906ACF5F5535657FD /* libPods-TSNExtensions.a */,
-				3B7FC782D67B8CE1C9CDFAED /* libPods-TSNPeerBluetooth.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D93B1DBEF9B26C8FC90D8394 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1298B1F7B485C13A2B4E724C /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F61BF1D42CEE9FC1706AE44D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C65FA70BA2DC42AFDFAC618 /* Pods-acknowledgements.markdown */,
-				E0992E13FE38AB7B707C79E9 /* Pods-acknowledgements.plist */,
-				9A83B1ED55086E234DB56E69 /* Pods-dummy.m */,
-				29A8B201CE223C55A5FC75BB /* Pods-environment.h */,
-				E741EC76FDEBC0C9FFDA6496 /* Pods-resources.sh */,
-				0EEF12C1E611E3E374F40EB9 /* Pods.debug.xcconfig */,
-				1464E8C084B935F6A3BF2C2B /* Pods.release.xcconfig */,
+				A1DC5D428FB84BA0D652F1E6 /* Pods-acknowledgements.markdown */,
+				FFAE68C45B6E2FFEDA71FD01 /* Pods-acknowledgements.plist */,
+				8BA918BDFCD240914FA8C240 /* Pods-dummy.m */,
+				F837AB15FC521C600B62C35E /* Pods-environment.h */,
+				7E2ED50A42A96462C6EC6DB6 /* Pods-resources.sh */,
+				DDE37F9DCEEC0CD6173EF531 /* Pods.debug.xcconfig */,
+				CFE6287E5ACDB4C9AFF337FE /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
+		141968EFBC51F38451106146 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0AA4F47B776539F1FBE20DEB /* Pods */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		2BFDC795FBCF3DF07AB49DD8 = {
+			isa = PBXGroup;
+			children = (
+				0668BFCC8463B1CB09607EE1 /* Podfile */,
+				B8EFC47045416EFD3F270956 /* Frameworks */,
+				E82B7A3514A6BD2CC1201574 /* Pods */,
+				D106324E6CFE66361DB9A45E /* Products */,
+				141968EFBC51F38451106146 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		3462DA51251352D81450A59C /* TSNPeerBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				9CB8D1E06A15E342923E0382 /* TSNPeerBluetooth.h */,
+				B7892F273009DA3DBBAFA37F /* TSNPeerBluetooth.m */,
+				51EAC14546B8551DD7DA36FA /* TSNPeerBluetoothDelegate.h */,
+				C0C8BE9BF45EE9A0DCABB174 /* Support Files */,
+			);
+			path = TSNPeerBluetooth;
+			sourceTree = "<group>";
+		};
+		3BD9E983A78621E1499DADBC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F086DDAA32BF58FDB49462F6 /* Pods-TSNExtensions.xcconfig */,
+				1DB76F9DDF67BF49896F891C /* Pods-TSNExtensions-Private.xcconfig */,
+				6E7D177DDB47A30D56CD53D0 /* Pods-TSNExtensions-dummy.m */,
+				A3DA8DC0F9BF80066CD19CA0 /* Pods-TSNExtensions-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-TSNExtensions";
+			sourceTree = "<group>";
+		};
+		5C6D6CE90CC24C8F45BAABFE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				08C8B62314B0BFF042FCAB2B /* CoreBluetooth.framework */,
+				4B9B02C9FFDD5E0C3D2D377D /* CoreLocation.framework */,
+				C709EA6D3E77FB27757E89A5 /* Foundation.framework */,
+				E88A1449B595B4B132ABAA9E /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		B8EFC47045416EFD3F270956 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5C6D6CE90CC24C8F45BAABFE /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF8D090249A5836E746E39D5 /* TSNAtomicFlag */ = {
+			isa = PBXGroup;
+			children = (
+				D01194919A6794C5C939252D /* TSNAtomicFlag.h */,
+				1D53D6224998B137A467BA16 /* TSNAtomicFlag.m */,
+				0377C0A222349EE103F646F2 /* Support Files */,
+			);
+			path = TSNAtomicFlag;
+			sourceTree = "<group>";
+		};
+		C0C8BE9BF45EE9A0DCABB174 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				83EC64640FCB774C2BA80155 /* Pods-TSNPeerBluetooth.xcconfig */,
+				040E5714B931948E7D7EEFEE /* Pods-TSNPeerBluetooth-Private.xcconfig */,
+				359C73BB798E7773E1C05A6E /* Pods-TSNPeerBluetooth-dummy.m */,
+				C88EFD3F420C4B5743FB2D0F /* Pods-TSNPeerBluetooth-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-TSNPeerBluetooth";
+			sourceTree = "<group>";
+		};
+		D106324E6CFE66361DB9A45E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6559D5D2749A518D1312EE3F /* libPods.a */,
+				8F2F9A579866B1F9E4A78FC8 /* libPods-TSNAtomicFlag.a */,
+				6B829B958C20CDE893629CB4 /* libPods-TSNExtensions.a */,
+				83098003988CB6EFC1C19EEB /* libPods-TSNPeerBluetooth.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDF80B271513F41AA58A0510 /* TSNExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				14BDE4A4F52FCE37073BF592 /* TSNThreading.h */,
+				EE2068B90C99F4B85C700ED3 /* UIColor+Extensions.h */,
+				CF9600E88BEF2871BF5DF5F3 /* UIColor+Extensions.m */,
+				AED13314F867A7A6963A063D /* UIView+Extensions.h */,
+				44B4E7A2D2C447E366671D76 /* UIView+Extensions.m */,
+				3BD9E983A78621E1499DADBC /* Support Files */,
+			);
+			path = TSNExtensions;
+			sourceTree = "<group>";
+		};
+		E82B7A3514A6BD2CC1201574 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF8D090249A5836E746E39D5 /* TSNAtomicFlag */,
+				DDF80B271513F41AA58A0510 /* TSNExtensions */,
+				3462DA51251352D81450A59C /* TSNPeerBluetooth */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		492ED3C997F6C55EFC1D7BA2 /* Headers */ = {
+		1ECF494E73A61AAA83CE7C51 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				777F536CD78CEFA628ED085F /* TSNAtomicFlag.h in Headers */,
+				A2A808B12681DFC60EEB74E9 /* TSNPeerBluetooth.h in Headers */,
+				E18DCAFBE15A5D6E33BDE64C /* TSNPeerBluetoothDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EE4305494C4CA98800722E4 /* Headers */ = {
+		206CE11E1A73AEA7E3787211 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA976DAFC357CE1E7689D9A9 /* TSNPeerBluetooth.h in Headers */,
-				CBE1BFCF9DD2D8EFC11128EB /* TSNPeerBluetoothDelegate.h in Headers */,
+				5825334E6E987474EDA67BA3 /* TSNThreading.h in Headers */,
+				3B6BCA5D927C3D0C381F08D0 /* UIColor+Extensions.h in Headers */,
+				E93486542850FDAEA7D6BF1D /* UIView+Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAF35709383CE1A30A21EBFA /* Headers */ = {
+		543D3AED64D943941CD3DD75 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				706F9785F159AC969165158B /* TSNThreading.h in Headers */,
-				DEB717EF0C30A0A8F9FD7711 /* UIColor+Extensions.h in Headers */,
-				0D2A924C4746CC97D32CED04 /* UIView+Extensions.h in Headers */,
+				7F0E8D882431635EA6906CAA /* TSNAtomicFlag.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		45B4B53EE9AE06B63D7E8B4D /* Pods */ = {
+		6F44D119DB08658FE4F7F195 /* Pods */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F4421CF8D5297727A8C2A86 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildConfigurationList = 57D56675A4BF33DD0442768F /* Build configuration list for PBXNativeTarget "Pods" */;
 			buildPhases = (
-				EB4177A78C654B51B23D0633 /* Sources */,
-				209A7F4B29899518E22B8398 /* Frameworks */,
+				946B19D05061EEA8AA12853F /* Sources */,
+				22CC727103F50F9607075B43 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FCC8708D6E877DC1D2881554 /* PBXTargetDependency */,
-				D6F4678207625DFEF49E5B53 /* PBXTargetDependency */,
-				643E51D579BB969AEB08A4EB /* PBXTargetDependency */,
+				FE5746B67305EAA14A6DC364 /* PBXTargetDependency */,
+				2C4C82DBFA8506217E267921 /* PBXTargetDependency */,
+				550FC680AE3BA3BAD84B3947 /* PBXTargetDependency */,
 			);
 			name = Pods;
 			productName = Pods;
-			productReference = 6DD42EB7E054F1B363442DE3 /* libPods.a */;
+			productReference = 6559D5D2749A518D1312EE3F /* libPods.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		4C2F9EDABBB7D24265ECB5A8 /* Pods-TSNPeerBluetooth */ = {
+		7A43955F06EC3AE92DD351D8 /* Pods-TSNPeerBluetooth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 103A5EFBCB6F92C071D40A30 /* Build configuration list for PBXNativeTarget "Pods-TSNPeerBluetooth" */;
+			buildConfigurationList = 9C5C04BF05D0108F332C7B42 /* Build configuration list for PBXNativeTarget "Pods-TSNPeerBluetooth" */;
 			buildPhases = (
-				557C2840A76EFB3A99648670 /* Sources */,
-				B49CC5954D7BEA4746B0ABF1 /* Frameworks */,
-				4EE4305494C4CA98800722E4 /* Headers */,
+				249AF1C7098EE004450C1CDE /* Sources */,
+				76616DC83B5161B8C6A6F955 /* Frameworks */,
+				1ECF494E73A61AAA83CE7C51 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -344,16 +344,16 @@
 			);
 			name = "Pods-TSNPeerBluetooth";
 			productName = "Pods-TSNPeerBluetooth";
-			productReference = 3B7FC782D67B8CE1C9CDFAED /* libPods-TSNPeerBluetooth.a */;
+			productReference = 83098003988CB6EFC1C19EEB /* libPods-TSNPeerBluetooth.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		906C574C957F25692E7A7927 /* Pods-TSNAtomicFlag */ = {
+		7D3D94A36DDE19A76D5C0824 /* Pods-TSNAtomicFlag */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1748C37AB5F04169B04A1D51 /* Build configuration list for PBXNativeTarget "Pods-TSNAtomicFlag" */;
+			buildConfigurationList = EADBAD3F3C510395AC7021DB /* Build configuration list for PBXNativeTarget "Pods-TSNAtomicFlag" */;
 			buildPhases = (
-				D24054F003B4C54C6D5900CE /* Sources */,
-				6F80A97A3371C25A284174EA /* Frameworks */,
-				492ED3C997F6C55EFC1D7BA2 /* Headers */,
+				E3C2F314512432668AF74E77 /* Sources */,
+				7D147D6CD15D6ED9D0399B9B /* Frameworks */,
+				543D3AED64D943941CD3DD75 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -361,16 +361,16 @@
 			);
 			name = "Pods-TSNAtomicFlag";
 			productName = "Pods-TSNAtomicFlag";
-			productReference = 6DF30D35A42659CCEFA89971 /* libPods-TSNAtomicFlag.a */;
+			productReference = 8F2F9A579866B1F9E4A78FC8 /* libPods-TSNAtomicFlag.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E95D5E65905C29DC38257D78 /* Pods-TSNExtensions */ = {
+		BDCEA560DC84033BAC341122 /* Pods-TSNExtensions */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E8747ABEBFD49CCE192E618 /* Build configuration list for PBXNativeTarget "Pods-TSNExtensions" */;
+			buildConfigurationList = 3028EC1DBDAF74EC3D4544E9 /* Build configuration list for PBXNativeTarget "Pods-TSNExtensions" */;
 			buildPhases = (
-				DDDF63D8242983B2FC20CA42 /* Sources */,
-				875CD31F1590144F97FFCAF4 /* Frameworks */,
-				CAF35709383CE1A30A21EBFA /* Headers */,
+				AF0438F8CF010E9A39BA8289 /* Sources */,
+				F4BFDF33D7DD8416CBA06105 /* Frameworks */,
+				206CE11E1A73AEA7E3787211 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -378,101 +378,149 @@
 			);
 			name = "Pods-TSNExtensions";
 			productName = "Pods-TSNExtensions";
-			productReference = 43F4BC4906ACF5F5535657FD /* libPods-TSNExtensions.a */;
+			productReference = 6B829B958C20CDE893629CB4 /* libPods-TSNExtensions.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D7C5D10B0C66D3159741C67B /* Project object */ = {
+		1F81D50126610017E7B220EF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = E183927080F23C627079301A /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 8B57B7BD6DF8FA9F887BC496 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = A973BED90FF1382169F3F0D1;
-			productRefGroup = C4CA7093BE92441AB055AEBD /* Products */;
+			mainGroup = 2BFDC795FBCF3DF07AB49DD8;
+			productRefGroup = D106324E6CFE66361DB9A45E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				45B4B53EE9AE06B63D7E8B4D /* Pods */,
-				906C574C957F25692E7A7927 /* Pods-TSNAtomicFlag */,
-				E95D5E65905C29DC38257D78 /* Pods-TSNExtensions */,
-				4C2F9EDABBB7D24265ECB5A8 /* Pods-TSNPeerBluetooth */,
+				6F44D119DB08658FE4F7F195 /* Pods */,
+				7D3D94A36DDE19A76D5C0824 /* Pods-TSNAtomicFlag */,
+				BDCEA560DC84033BAC341122 /* Pods-TSNExtensions */,
+				7A43955F06EC3AE92DD351D8 /* Pods-TSNPeerBluetooth */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		557C2840A76EFB3A99648670 /* Sources */ = {
+		249AF1C7098EE004450C1CDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				632EF9302ADE781A24E666CA /* Pods-TSNPeerBluetooth-dummy.m in Sources */,
-				034F5315197D37EB186F6927 /* TSNPeerBluetooth.m in Sources */,
+				558C5C4502DA50EA581DB4DF /* Pods-TSNPeerBluetooth-dummy.m in Sources */,
+				F5DEC987390CA06577C8D525 /* TSNPeerBluetooth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D24054F003B4C54C6D5900CE /* Sources */ = {
+		946B19D05061EEA8AA12853F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1822A11BE4A8E9A169A9A94 /* Pods-TSNAtomicFlag-dummy.m in Sources */,
-				F18BA76EC0D8E2C77EE863F6 /* TSNAtomicFlag.m in Sources */,
+				23C5E6A1D725E2D62FBAC0E5 /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DDDF63D8242983B2FC20CA42 /* Sources */ = {
+		AF0438F8CF010E9A39BA8289 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44780CA6A71C11A22B6822E0 /* Pods-TSNExtensions-dummy.m in Sources */,
-				32877D2871484C6246AFCDF4 /* UIColor+Extensions.m in Sources */,
-				8E01551BDF71BDCAF1A933EC /* UIView+Extensions.m in Sources */,
+				71C65E0F07AC7BBC3FA6B9E4 /* Pods-TSNExtensions-dummy.m in Sources */,
+				25AC5E86B33A9DB5E35D5742 /* UIColor+Extensions.m in Sources */,
+				91DCA123FFFB1C01B4FEA0A9 /* UIView+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB4177A78C654B51B23D0633 /* Sources */ = {
+		E3C2F314512432668AF74E77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF4B97A76420115C32C79B92 /* Pods-dummy.m in Sources */,
+				6E25070CB4E583A13454B4F4 /* Pods-TSNAtomicFlag-dummy.m in Sources */,
+				3EF658E8F3425CA0F6F3D874 /* TSNAtomicFlag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		643E51D579BB969AEB08A4EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-TSNPeerBluetooth";
-			target = 4C2F9EDABBB7D24265ECB5A8 /* Pods-TSNPeerBluetooth */;
-			targetProxy = 7C3D02B66A8BCC7DA4295F91 /* PBXContainerItemProxy */;
-		};
-		D6F4678207625DFEF49E5B53 /* PBXTargetDependency */ = {
+		2C4C82DBFA8506217E267921 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TSNExtensions";
-			target = E95D5E65905C29DC38257D78 /* Pods-TSNExtensions */;
-			targetProxy = 000F5661AA0773D56CDB3E18 /* PBXContainerItemProxy */;
+			target = BDCEA560DC84033BAC341122 /* Pods-TSNExtensions */;
+			targetProxy = 537976C87A468AFEB46597A6 /* PBXContainerItemProxy */;
 		};
-		FCC8708D6E877DC1D2881554 /* PBXTargetDependency */ = {
+		550FC680AE3BA3BAD84B3947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-TSNPeerBluetooth";
+			target = 7A43955F06EC3AE92DD351D8 /* Pods-TSNPeerBluetooth */;
+			targetProxy = 4253CEBD71DC74AD1ED3C5EC /* PBXContainerItemProxy */;
+		};
+		FE5746B67305EAA14A6DC364 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TSNAtomicFlag";
-			target = 906C574C957F25692E7A7927 /* Pods-TSNAtomicFlag */;
-			targetProxy = B1280811DB6CEC966100BF5A /* PBXContainerItemProxy */;
+			target = 7D3D94A36DDE19A76D5C0824 /* Pods-TSNAtomicFlag */;
+			targetProxy = 0B1FA45F5F7BA140BAED2B35 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0AFA0BF989C5A157413A2436 /* Debug */ = {
+		1A8CF9A7DBD7AD709781403E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65A44DF9D35AB3A19D4BA7E1 /* Pods-TSNAtomicFlag-Private.xcconfig */;
+			baseConfigurationReference = 1DB76F9DDF67BF49896F891C /* Pods-TSNExtensions-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNExtensions/Pods-TSNExtensions-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2485A424824C724B6735DE7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDE37F9DCEEC0CD6173EF531 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3ACC8276010EEE07632F3D1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31B14F2B257CF903FAE5DEC7 /* Pods-TSNAtomicFlag-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNAtomicFlag/Pods-TSNAtomicFlag-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		87DD3DAAB3FAD52D39B21819 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31B14F2B257CF903FAE5DEC7 /* Pods-TSNAtomicFlag-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNAtomicFlag/Pods-TSNAtomicFlag-prefix.pch";
@@ -486,75 +534,9 @@
 			};
 			name = Debug;
 		};
-		23DEC3C7124DF5C9FFA1BE04 /* Release */ = {
+		89028F6D8450A0B723F2E8C8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65A44DF9D35AB3A19D4BA7E1 /* Pods-TSNAtomicFlag-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNAtomicFlag/Pods-TSNAtomicFlag-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		360EAD4EEDC70E5D1CF779F7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AB86B1B8CA326C6D6874F1F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAC40713BA493623CD1C620E /* Pods-TSNPeerBluetooth-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNPeerBluetooth/Pods-TSNPeerBluetooth-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		8058E4D65715B9B4938FF68E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC4ED2BBC6B10745FAE7AF2B /* Pods-TSNExtensions-Private.xcconfig */;
+			baseConfigurationReference = 1DB76F9DDF67BF49896F891C /* Pods-TSNExtensions-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNExtensions/Pods-TSNExtensions-prefix.pch";
@@ -568,7 +550,55 @@
 			};
 			name = Release;
 		};
-		9D8000B19579EEE4AB630E26 /* Debug */ = {
+		B96DEFC24E6D4D7D35F06309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 040E5714B931948E7D7EEFEE /* Pods-TSNPeerBluetooth-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNPeerBluetooth/Pods-TSNPeerBluetooth-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BD163CC80919B265DB33C716 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFE6287E5ACDB4C9AFF337FE /* Pods.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		DEA31CDAC76FE8D0A96A792E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 040E5714B931948E7D7EEFEE /* Pods-TSNPeerBluetooth-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNPeerBluetooth/Pods-TSNPeerBluetooth-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		EC282E37093B26C8A27A1F78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -607,119 +637,89 @@
 			};
 			name = Debug;
 		};
-		C904A05FC98D33B304580DEB /* Debug */ = {
+		FF362558F479CAA494092BFB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC4ED2BBC6B10745FAE7AF2B /* Pods-TSNExtensions-Private.xcconfig */;
 			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNExtensions/Pods-TSNExtensions-prefix.pch";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		CCD362A82C02E511233AA5D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EEF12C1E611E3E374F40EB9 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		DB074A5084C20E8060C5ABE7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1464E8C084B935F6A3BF2C2B /* Pods.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		F3D7D0FA88C29E5DCDED2CC6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAC40713BA493623CD1C620E /* Pods-TSNPeerBluetooth-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TSNPeerBluetooth/Pods-TSNPeerBluetooth-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		103A5EFBCB6F92C071D40A30 /* Build configuration list for PBXNativeTarget "Pods-TSNPeerBluetooth" */ = {
+		3028EC1DBDAF74EC3D4544E9 /* Build configuration list for PBXNativeTarget "Pods-TSNExtensions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F3D7D0FA88C29E5DCDED2CC6 /* Debug */,
-				7AB86B1B8CA326C6D6874F1F /* Release */,
+				1A8CF9A7DBD7AD709781403E /* Debug */,
+				89028F6D8450A0B723F2E8C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1748C37AB5F04169B04A1D51 /* Build configuration list for PBXNativeTarget "Pods-TSNAtomicFlag" */ = {
+		57D56675A4BF33DD0442768F /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0AFA0BF989C5A157413A2436 /* Debug */,
-				23DEC3C7124DF5C9FFA1BE04 /* Release */,
+				2485A424824C724B6735DE7E /* Debug */,
+				BD163CC80919B265DB33C716 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E8747ABEBFD49CCE192E618 /* Build configuration list for PBXNativeTarget "Pods-TSNExtensions" */ = {
+		8B57B7BD6DF8FA9F887BC496 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C904A05FC98D33B304580DEB /* Debug */,
-				8058E4D65715B9B4938FF68E /* Release */,
+				EC282E37093B26C8A27A1F78 /* Debug */,
+				FF362558F479CAA494092BFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F4421CF8D5297727A8C2A86 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		9C5C04BF05D0108F332C7B42 /* Build configuration list for PBXNativeTarget "Pods-TSNPeerBluetooth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CCD362A82C02E511233AA5D6 /* Debug */,
-				DB074A5084C20E8060C5ABE7 /* Release */,
+				B96DEFC24E6D4D7D35F06309 /* Debug */,
+				DEA31CDAC76FE8D0A96A792E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E183927080F23C627079301A /* Build configuration list for PBXProject "Pods" */ = {
+		EADBAD3F3C510395AC7021DB /* Build configuration list for PBXNativeTarget "Pods-TSNAtomicFlag" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9D8000B19579EEE4AB630E26 /* Debug */,
-				360EAD4EEDC70E5D1CF779F7 /* Release */,
+				87DD3DAAB3FAD52D39B21819 /* Debug */,
+				3ACC8276010EEE07632F3D1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D7C5D10B0C66D3159741C67B /* Project object */;
+	rootObject = 1F81D50126610017E7B220EF /* Project object */;
 }

@@ -29,7 +29,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TSNPeerBluetoothDelegate.h"
 
-// TSNPeerBluetooth interface.
+// TSNPeerBluetooth interface.v
 @interface TSNPeerBluetooth : NSObject
 
 // Properties.

@@ -30,6 +30,9 @@
         return nil;
     }
     
+    // Initialize.
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
     // Done.
     return self;
 }

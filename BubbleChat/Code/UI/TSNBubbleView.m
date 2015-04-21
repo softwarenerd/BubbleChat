@@ -134,7 +134,7 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
     [_viewContainer setOpaque:YES];
     [_viewContainer setAutoresizesSubviews:YES];
     [_viewContainer setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
-    [_viewContainer setBackgroundColor:[UIColor colorWithRGB:0xecf0f1]];
+    [_viewContainer setBackgroundColor:[UIColor colorWithRGB:0xffffff]];
     [self addSubview:_viewContainer];
 
     // Calculate the text are height and Y. This is the area below the table view that contains
@@ -145,7 +145,7 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
     // Allocate, initialize, and add the table view.
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, [_viewContainer width], textAreaY)
                                               style:UITableViewStylePlain];
-    [_tableView setBackgroundColor:[UIColor colorWithRGB:0xe1e5e5]];
+    [_tableView setBackgroundColor:[UIColor colorWithRGB:0xffffff]];
     [_tableView setShowsVerticalScrollIndicator:NO];
     [_tableView setShowsHorizontalScrollIndicator:NO];
     [_tableView setContentInset:UIEdgeInsetsZero];

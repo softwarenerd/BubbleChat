@@ -1,7 +1,7 @@
 PODS:
   - TSNAtomicFlag (1.0)
   - TSNExtensions (1.0.5)
-  - TSNPeerBluetooth (1.0.3)
+  - TSNPeerBluetooth (1.0.5)
 
 DEPENDENCIES:
   - TSNAtomicFlag
@@ -11,6 +11,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   TSNAtomicFlag: b7d664aa2c49beaa4510a87e09e8b93f1cfea532
   TSNExtensions: cf0a9d30be0f8be43d9d6a9fd99806ef4407e318
-  TSNPeerBluetooth: 867818478f9b169078f1bfdd3bc276253c3da6e0
+  TSNPeerBluetooth: f0244e86107089ea8bac2ca4b6947cc7f0c7c260
 
 COCOAPODS: 0.36.3
