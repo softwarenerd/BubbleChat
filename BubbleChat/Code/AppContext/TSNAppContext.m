@@ -169,14 +169,10 @@ didConnectPeerIdentifier:(NSUUID *)peerIdentifier
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
-    // Get the notification center.
+    // Post notifications.
     NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    // Post the TSNPeerEntered notification.
     [notificationCenter postNotificationName:TSNPeerEnteredNotification
                                       object:peer];
-    
-    // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
     [notificationCenter postNotificationName:TSNPeersUpdatedNotification
                                       object:nil];
 }
@@ -188,28 +184,24 @@ didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
     // Lock.
     pthread_mutex_lock(&_mutex);
     
+    // Find the peer.
     TSNPeer * peer = _peers[peerIdentifier];
-    if (peer)
+    if (!peer)
     {
-        [_peers removeObjectForKey:peerIdentifier];
+        pthread_mutex_unlock(&_mutex);
+        return;
     }
+    
+    // Remove the peer.
+    [_peers removeObjectForKey:peerIdentifier];
 
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
-    if (!peer)
-    {
-        return;
-    }
-
-    // Get the notification center.
+    // Post notifications.
     NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    // Post the TSNPeerEntered notification.
     [notificationCenter postNotificationName:TSNPeerExitedNotification
                                       object:peer];
-    
-    // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
     [notificationCenter postNotificationName:TSNPeersUpdatedNotification
                                       object:nil];
 }
@@ -222,7 +214,7 @@ didReceivePeerLocation:(CLLocation *)peerLocation
     // Lock.
     pthread_mutex_lock(&_mutex);
     
-    // Get the peer. If we don't have it yet, ignore the location update.
+    // Find the peer. If the peer was not found, ignore the update.
     TSNPeer * peer = _peers[peerIdentifier];
     if (!peer)
     {
@@ -238,7 +230,7 @@ didReceivePeerLocation:(CLLocation *)peerLocation
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
-    // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
+    // Post notification.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
                                                         object:nil];
 }
@@ -251,23 +243,22 @@ didReceivePeerLocation:(CLLocation *)peerLocation
     // Lock.
     pthread_mutex_lock(&_mutex);
     
+    // Find the peer.
     TSNPeer * peer = _peers[peerIdentifier];
 
     // Unlock.
     pthread_mutex_unlock(&_mutex);
 
+    // If the peer was not found, ignore the update.
     if (!peer)
     {
         return;
     }
 
-    // Get the notification center.
-    NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
-
-    // Post the TSNPeerStatus notification.
-    [notificationCenter postNotificationName:TSNPeerStatusNotification
-                                      object:[[TSNPeerStatus alloc] initWithPeer:peer
-                                                                          status:peerStatus]];
+    // Post notification.
+    [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeerStatusNotification
+                                                        object:[[TSNPeerStatus alloc] initWithPeer:peer
+                                                                                            status:peerStatus]];
 
     // If the application is not active, post a local notification.
     if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
@@ -333,20 +324,20 @@ didReceivePeerLocation:(CLLocation *)peerLocation
     
     // Static declarations.
     static NSString * const PEER_IDENTIFIER_KEY = @"PeerIdentifierKey";
-    
-    // Obtain user defaults and see if we have a serialized peer identifier. If we do, deserialize it. If not, make one
-    // and serialize it for later use.
+        
+    // Obtain user defaults and see if we have a serialized peer identifier. If we do,
+    // deserialize it. If not, make one and serialize it for later use.
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSData * peerIdentifierData = [userDefaults dataForKey:PEER_IDENTIFIER_KEY];
     if (!peerIdentifierData)
     {
-        // Allocate and initialize a new peer ID.
+        // Create a new peer identifier.
         UInt8 uuid[16];
         [[NSUUID UUID] getUUIDBytes:uuid];
         peerIdentifierData = [NSData dataWithBytes:uuid
                                             length:sizeof(uuid)];
         
-        // Serialize and save the peer ID in user defaults.
+        // Save the peer identifier in user defaults.
         [userDefaults setValue:peerIdentifierData
                         forKey:PEER_IDENTIFIER_KEY];
         [userDefaults synchronize];
@@ -355,8 +346,8 @@ didReceivePeerLocation:(CLLocation *)peerLocation
     
     // Allocate and initialize the peer Bluetooth context.
     _peerBluetooth = [[TSNPeerBluetooth alloc] initWithServiceType:serviceType
-                                                                  peerIdentifier:peerIdentifier
-                                                                        peerName:[[UIDevice currentDevice] name]];
+                                                    peerIdentifier:peerIdentifier
+                                                          peerName:[[UIDevice currentDevice] name]];
     [_peerBluetooth setDelegate:(id<TSNPeerBluetoothDelegate>)self];
     
     // Allocate and initialize the location context.
