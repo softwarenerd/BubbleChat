@@ -6,9 +6,6 @@ BubbleChat Concept
 The concept behind BubbleChat is simple: Peers that you can communicate with over Bluetooth LE are in your "bubble". Peers come and go from your bubble as they move near to you and away from you. You can see which peers are in your bubble and where they are relative to you in the Nearby Peers view. You can chat with peers that are in your bubble in the Bubble view.
 
 I've written a [blog posting](http://www.softwarenerd.org/code/2015/4/16/bubble-chat-and-tsnpeerbluetooth-cocoapod) about BubbleChat and TSNPeerBluetooth which includes a video that shows BubbleChat in action.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WRQ7xHVtwNE" frameborder="0" allowfullscreen></iframe>
-
 License
 -------
 BubbleChat is released under an MIT license, meaning you're free to use it in both closed and open source projects. However, even in a closed source project, please include a publicly-accessible copy of BubbleChat's copyright notice, which you can find in the LICENSE file.
