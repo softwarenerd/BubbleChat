@@ -175,6 +175,16 @@ didConnectPeerIdentifier:(NSUUID *)peerIdentifier
                                       object:peer];
     [notificationCenter postNotificationName:TSNPeersUpdatedNotification
                                       object:nil];
+
+    // If the application is not active, post a local notification.
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+    {
+        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+        [localNotification setFireDate:[[NSDate alloc] init]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Connected", [peer name]]];
+        [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 // Notifies the delegate that a peer was disconnected.
@@ -204,6 +214,16 @@ didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
                                       object:peer];
     [notificationCenter postNotificationName:TSNPeersUpdatedNotification
                                       object:nil];
+    
+    // If the application is not active, post a local notification.
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+    {
+        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+        [localNotification setFireDate:[[NSDate alloc] init]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Disconnected", [peer name]]];
+        [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 // Notifies the delegate that a peer updated its location.
