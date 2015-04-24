@@ -181,7 +181,7 @@ didConnectPeerIdentifier:(NSUUID *)peerIdentifier
     {
         UILocalNotification * localNotification = [[UILocalNotification alloc] init];
         [localNotification setFireDate:[[NSDate alloc] init]];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Connected", [peer name]]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Entered Bubble", [peer name]]];
         [localNotification setSoundName:UILocalNotificationDefaultSoundName];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
@@ -220,7 +220,7 @@ didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
     {
         UILocalNotification * localNotification = [[UILocalNotification alloc] init];
         [localNotification setFireDate:[[NSDate alloc] init]];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Disconnected", [peer name]]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: Exited Bubble", [peer name]]];
         [localNotification setSoundName:UILocalNotificationDefaultSoundName];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
