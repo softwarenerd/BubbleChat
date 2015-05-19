@@ -610,6 +610,9 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 - (void)peripheralManager:(CBPeripheralManager *)peripheralManager
     didReceiveReadRequest:(CBATTRequest *)request
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // Peer location characteristic.
     if ([[[request characteristic] UUID] isEqual:_peerLocationType])
     {
@@ -620,9 +623,7 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
         }
         else
         {
-            pthread_mutex_lock(&_mutex);
             CLLocationCoordinate2D locationCoordinate = _peerLocationCoordinate;
-            pthread_mutex_unlock(&_mutex);
             [request setValue:dataForLocationCoordinate(locationCoordinate)];
             [peripheralManager respondToRequest:request
                                      withResult:CBATTErrorSuccess];
@@ -703,6 +704,15 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
                                      withResult:CBATTErrorSuccess];
         }
     }
+    else
+    {
+        // Unknown characteristic.
+        [peripheralManager respondToRequest:request
+                                 withResult:CBATTErrorAttributeNotFound];
+    }
+    
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked after a failed call to update a characteristic.
@@ -766,17 +776,24 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Obtain the peripheral identifier string.
     NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
     
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // If we're not connected or connecting to this peripheral, connect to it.
     if (!_peers[peripheralIdentifierString])
     {
         // Add a TSNPeerDescriptor to the peers dictionary.
         _peers[peripheralIdentifierString] = [[TSNPeerDescriptor alloc] initWithPeripheral:peripheral
                                                                               initialState:TSNPeerDescriptorStateConnecting];
+        
 
         // Connect to the peripheral.
         [_centralManager connectPeripheral:peripheral
                                    options:nil];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked when a peripheral is connected.
@@ -786,6 +803,9 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Get the peripheral identifier string.
     NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
     
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // Find the peer descriptor in the peers dictionary. It should be there.
     TSNPeerDescriptor * peerDescriptor = _peers[peripheralIdentifierString];
     if (peerDescriptor)
@@ -804,6 +824,9 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Set our delegate on the peripheral and discover its services.
     [peripheral setDelegate:(id<CBPeripheralDelegate>)self];
     [peripheral discoverServices:@[_serviceType]];
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked when a peripheral connection fails.
@@ -824,6 +847,9 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
 {
     // Get the peripheral identifier string.
     NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
+
+    // Lock.
+    pthread_mutex_lock(&_mutex);
 
     // Find the peer descriptor.
     TSNPeerDescriptor * peerDescriptor = [_peers objectForKey:peripheralIdentifierString];
@@ -852,6 +878,9 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
         [_centralManager connectPeripheral:peripheral
                                    options:nil];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 @end
@@ -1152,15 +1181,15 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     // Set the peer location coordinate.
     _peerLocationCoordinate = [peerLocation coordinate];
     
-    // Unlock.
-    pthread_mutex_unlock(&_mutex);
-
     // Update the characteristic value.
     if (_enabled)
     {
         [self updateValue:dataForLocationCoordinate([peerLocation coordinate])
         forCharacteristic:_characteristicPeerLocation];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Updates the peer status characteristic.
@@ -1213,9 +1242,6 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         _peerStatusIndex = 0;
     }
     
-    // Unlock.
-    pthread_mutex_unlock(&_mutex);
-
     // If we're enabled, update the peer status characteristic value.
     if (_enabled)
     {
@@ -1228,6 +1254,9 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         [self updateValue:value
         forCharacteristic:characteristicPeerStatus];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 
     // Success.
     return YES;
@@ -1243,16 +1272,10 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
                        forCharacteristic:characteristic
                     onSubscribedCentrals:nil])
     {
-        // Lock.
-        pthread_mutex_lock(&_mutex);
-        
         // Enqueue characteristic update descriptor for the failed update. It will be updated when peripheralManagerIsReadyToUpdateSubscribers:
         // is called back.
         [_pendingCharacteristicUpdates addObject:[[TSNCharacteristicUpdateDescriptor alloc] initWithValue:value
                                                                                            characteristic:characteristic]];
-        
-        // Unlock.
-        pthread_mutex_unlock(&_mutex);
     }
 }
 
