@@ -583,6 +583,10 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 // Invoked whenever the peripheral manager's state has been updated.
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheralManager
 {
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
+    // Process the state.
     if ([_peripheralManager state] == CBPeripheralManagerStatePoweredOn)
     {
         [self startAdvertising];
@@ -591,6 +595,9 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     {
         [self stopAdvertising];
     }
+    
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked with the result of a startAdvertising call.
@@ -834,10 +841,25 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 didFailToConnectPeripheral:(CBPeripheral *)peripheral
                  error:(NSError *)error
 {
-    // Immediately reconnect. This is long-lived meaning that we will connect to this peer whenever it is
-    // encountered again.
-    [_centralManager connectPeripheral:peripheral
-                               options:nil];
+    // Get the peripheral identifier string.
+    NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
+
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+    
+    // Find the peer descriptor in the peers dictionary. It should be there.
+    TSNPeerDescriptor * peerDescriptor = _peers[peripheralIdentifierString];
+    if (peerDescriptor)
+    {
+        // Immediately reconnect. This is long-lived meaning that we will connect to this peer whenever it is
+        // encountered again.
+        [peerDescriptor setState:TSNPeerDescriptorStateConnecting];
+        [_centralManager connectPeripheral:peripheral
+                                   options:nil];
+    }
+    
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked when a peripheral is disconnected.
@@ -895,7 +917,7 @@ didDiscoverServices:(NSError *)error
     // Process the services.
     for (CBService * service in [peripheral services])
     {
-        // If this is our service, discover its characteristics.
+        // If this is our service, discover our characteristics.
         if ([[service UUID] isEqual:_serviceType])
         {
             [peripheral discoverCharacteristics:@[_peerIDType,
@@ -924,15 +946,14 @@ didDiscoverCharacteristicsForService:(CBService *)service
     // Get the peripheral identifier string.
     NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
     
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // Obtain the peer descriptor.
     TSNPeerDescriptor * peerDescriptor = _peers[peripheralIdentifierString];
-    if (!peerDescriptor)
-    {
-        return;
-    }
     
-    // If this is our service, process its discovered characteristics.
-    if ([[service UUID] isEqual:_serviceType])
+    // If we have a peer descriptor and this is our service, process its discovered characteristics.
+    if (peerDescriptor && [[service UUID] isEqual:_serviceType])
     {
         // Process each of the discovered characteristics.
         for (CBCharacteristic * characteristic in [service characteristics])
@@ -1000,6 +1021,9 @@ didDiscoverCharacteristicsForService:(CBService *)service
             }
         }
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 // Invoked when the value of a characteristic is updated.
@@ -1010,120 +1034,124 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     // Get the peripheral identifier string.
     NSString * peripheralIdentifierString = [[peripheral identifier] UUIDString];
 
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+
     // Obtain the peer descriptor.
     TSNPeerDescriptor * peerDescriptor = _peers[peripheralIdentifierString];
-    if (!peerDescriptor)
+    if (peerDescriptor)
     {
-        return;
-    }
-
-    // Peer ID characteristic.
-    if ([[characteristic UUID] isEqual:_peerIDType])
-    {
-        // When the peer ID is updated, set the peer ID in the peer descriptor.
-        [peerDescriptor setPeerID:[[NSUUID alloc] initWithUUIDBytes:[[characteristic value] bytes]]];
-    }
-    // Peer name characteristic.
-    else if ([[characteristic UUID] isEqual:_peerNameType])
-    {
-        // When the peer name is updated, set the peer name in the peer descriptor.
-        [peerDescriptor setPeerName:[[NSString alloc] initWithData:[characteristic value]
-                                                          encoding:NSUTF8StringEncoding]];
-    }
-    // Peer location characteristic.
-    else if ([[characteristic UUID] isEqual:_peerLocationType])
-    {
-        // When the peer location is updated, set the peer location in the peer descriptor.
-        if ([[characteristic value] length] == sizeof(CLLocationDegrees) * 2)
+        // Peer ID characteristic.
+        if ([[characteristic UUID] isEqual:_peerIDType])
         {
-            CLLocationDegrees * latitude = (CLLocationDegrees *)[[characteristic value] bytes];
-            CLLocationDegrees * longitude = latitude + 1;
-            [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
-                                                                       longitude:*longitude]];
+            // When the peer ID is updated, set the peer ID in the peer descriptor.
+            [peerDescriptor setPeerID:[[NSUUID alloc] initWithUUIDBytes:[[characteristic value] bytes]]];
+        }
+        // Peer name characteristic.
+        else if ([[characteristic UUID] isEqual:_peerNameType])
+        {
+            // When the peer name is updated, set the peer name in the peer descriptor.
+            [peerDescriptor setPeerName:[[NSString alloc] initWithData:[characteristic value]
+                                                              encoding:NSUTF8StringEncoding]];
+        }
+        // Peer location characteristic.
+        else if ([[characteristic UUID] isEqual:_peerLocationType])
+        {
+            // When the peer location is updated, set the peer location in the peer descriptor.
+            if ([[characteristic value] length] == sizeof(CLLocationDegrees) * 2)
+            {
+                CLLocationDegrees * latitude = (CLLocationDegrees *)[[characteristic value] bytes];
+                CLLocationDegrees * longitude = latitude + 1;
+                [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
+                                                                           longitude:*longitude]];
+                
+                // If the peer is fully initialized (it's in the connected state), notify the delegate.
+                if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
+                {
+                    // Notify the delegate.
+                    if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerLocation:fromPeerIdentifier:)])
+                    {
+                        [[self delegate] peerBluetooth:self
+                                didReceivePeerLocation:[peerDescriptor peerLocation]
+                                    fromPeerIdentifier:[peerDescriptor peerID]];
+                    }
+                }
+            }
+        }
+        // Peer status 1 updated at characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType])
+        {
+            // Read the peer status 1 characteristic.
+            [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus1]];
+        }
+        // Peer status 2 updated at characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus2UpdatedAtType])
+        {
+            // Read the peer status 2 characteristic.
+            [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus2]];
+        }
+        // Peer status 3 updated at characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus3UpdatedAtType])
+        {
+            // Read the peer status 3 characteristic.
+            [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus3]];
+        }
+        // Peer status 4 updated at characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus4UpdatedAtType])
+        {
+            // Read the peer status 4 characteristic.
+            [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus4]];
+        }
+        // Peer status 5 updated at characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
+        {
+            // Read the peer status 5 characteristic.
+            [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus5]];
+        }
+        // Peer status 1-5 characteristic.
+        else if ([[characteristic UUID] isEqual:_peerStatus1Type] ||
+                 [[characteristic UUID] isEqual:_peerStatus2Type] ||
+                 [[characteristic UUID] isEqual:_peerStatus3Type] ||
+                 [[characteristic UUID] isEqual:_peerStatus4Type] ||
+                 [[characteristic UUID] isEqual:_peerStatus5Type])
+        {
+            // If there was a value, process it.
+            if ([[characteristic value] length])
+            {
+                // If the peer is fully initialized (it's in the connected state), notify the delegate.
+                if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
+                {
+                    // Notify the delegate.
+                    if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerStatus:fromPeerIdentifier:)])
+                    {
+                        [[self delegate] peerBluetooth:self
+                                  didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
+                                                                             encoding:NSUTF8StringEncoding]
+                                    fromPeerIdentifier:[peerDescriptor peerID]];
+                    }
+                }
+            }
+        }
+        
+        // Detect when the peer is fully initialized and move it to the connected state.
+        if ([peerDescriptor state] == TSNPeerDescriptorStateInitializing && [peerDescriptor peerID] && [peerDescriptor peerName] && [peerDescriptor peerLocation])
+        {
+            // Move the peer to the connected state.
+            [peerDescriptor setState:TSNPeerDescriptorStateConnected];
             
-            // If the peer is fully initialized (it's in the connected state), notify the delegate.
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
+            // Notify the delegate that the peer is connected.
+            if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didConnectPeerIdentifier:peerName:peerLocation:)])
             {
-                // Notify the delegate.
-                if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerLocation:fromPeerIdentifier:)])
-                {
-                    [[self delegate] peerBluetooth:self
-                            didReceivePeerLocation:[peerDescriptor peerLocation]
-                                fromPeerIdentifier:[peerDescriptor peerID]];
-                }
-            }
-        }
-    }
-    // Peer status 1 updated at characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus1UpdatedAtType])
-    {
-        // Read the peer status 1 characteristic.
-        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus1]];
-    }
-    // Peer status 2 updated at characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus2UpdatedAtType])
-    {
-        // Read the peer status 2 characteristic.
-        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus2]];
-    }
-    // Peer status 3 updated at characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus3UpdatedAtType])
-    {
-        // Read the peer status 3 characteristic.
-        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus3]];
-    }
-    // Peer status 4 updated at characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus4UpdatedAtType])
-    {
-        // Read the peer status 4 characteristic.
-        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus4]];
-    }
-    // Peer status 5 updated at characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus5UpdatedAtType])
-    {
-        // Read the peer status 5 characteristic.
-        [peripheral readValueForCharacteristic:[peerDescriptor characteristicPeerStatus5]];
-    }
-    // Peer status 1-5 characteristic.
-    else if ([[characteristic UUID] isEqual:_peerStatus1Type] ||
-             [[characteristic UUID] isEqual:_peerStatus2Type] ||
-             [[characteristic UUID] isEqual:_peerStatus3Type] ||
-             [[characteristic UUID] isEqual:_peerStatus4Type] ||
-             [[characteristic UUID] isEqual:_peerStatus5Type])
-    {
-        // If there was a value, process it.
-        if ([[characteristic value] length])
-        {
-            // If the peer is fully initialized (it's in the connected state), notify the delegate.
-            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected)
-            {
-                // Notify the delegate.
-                if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didReceivePeerStatus:fromPeerIdentifier:)])
-                {
-                    [[self delegate] peerBluetooth:self
-                              didReceivePeerStatus:[[NSString alloc] initWithData:[characteristic value]
-                                                                         encoding:NSUTF8StringEncoding]
-                                fromPeerIdentifier:[peerDescriptor peerID]];
-                }
+                [[self delegate] peerBluetooth:self
+                      didConnectPeerIdentifier:[peerDescriptor peerID]
+                                      peerName:[peerDescriptor peerName]
+                                  peerLocation:[peerDescriptor peerLocation]];
             }
         }
     }
 
-    // Detect when the peer is fully initialized and move it to the connected state.
-    if ([peerDescriptor state] == TSNPeerDescriptorStateInitializing && [peerDescriptor peerID] && [peerDescriptor peerName] && [peerDescriptor peerLocation])
-    {
-        // Move the peer to the connected state.
-        [peerDescriptor setState:TSNPeerDescriptorStateConnected];
-
-        // Notify the delegate that the peer is connected.
-        if ([[self delegate] respondsToSelector:@selector(peerBluetooth:didConnectPeerIdentifier:peerName:peerLocation:)])
-        {
-            [[self delegate] peerBluetooth:self
-                  didConnectPeerIdentifier:[peerDescriptor peerID]
-                                  peerName:[peerDescriptor peerName]
-                              peerLocation:[peerDescriptor peerLocation]];
-        }
-    }
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
 }
 
 @end
@@ -1264,6 +1292,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 
 // Updates the value of a characteristic. Automatically handles the case when the transmit queue
 // is full by enqueuing a characteristic update for later transmission.
+// NOTE: _mutex should be locked when calling this method.
 - (void)updateValue:(NSData *)value
   forCharacteristic:(CBMutableCharacteristic *)characteristic
 {
